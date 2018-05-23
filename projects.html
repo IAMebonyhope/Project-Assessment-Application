@@ -9,11 +9,11 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
-    <link href="MDB Free/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="MDB Free/css/mdb.min.css" rel="stylesheet">
+    <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
-    <link href="MDB Free/css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body class="grey lighten-3">
@@ -69,25 +69,20 @@
 
 </header>
 
-<div style="padding-top:80px; margin: 30px;">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreateGradeScaleForm">Create Grading Scale</button>
-</div>
 
-<div>
+
+<div style="padding-top:80px; margin:30px;">
      <!--Table-->
-  <table class="table table-bordered">
+  <table class="table table-bordered" >
     
     <!--Table head-->
     <thead class="mdb-color darken-3">
         <tr class="text-white" style="text-align:center;">
             <th>#</th>
-            <th style="width:25%">SCALE NAME</th>
-            <th style="width:10%">ABSTRACT</th>
-            <th style="width:10%">LITERATURE REVIEW</th>
-            <th style="width:10%">METHODOLOGY</th>
-            <th style="width:10%">ANALYSIS</th>
-            <th style="width:10%">CONCLUSION</th>
-            <th style="width:25%">EDIT SCALE</th>
+            <th style="width:25%">PROJECT NAME</th>
+            <th style="width:25%">SUBMITTED BY</th>
+            <th style="width:25%">ASSIGNED TO</th>
+            <th style="width:25%"></th>
         </tr>
     </thead>
     <!--Table head-->
@@ -96,35 +91,31 @@
     <tbody class="white font-weight-bold" >
         <tr style="text-align:center;">
             <th scope="row">1</th>
-            <td>Scale 1</td>
-            <td>10</td>
-            <td>15</td>
-            <td>15</td>
-            <td>40</td>
-            <td>20</td>
-            <td><div class = "col-md-8 mx-auto"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 pull-left" >Edit Scale</button><button type="button" class="btn btn-red btn-rounded btn-sm my-0 red pull-right" >Delete Scale</button></div></td>
+            <td>Project 1</td>
+            <td>Seyikemi Sojirin</td>
+            <td><div>
+                <ul>
+                    <li>Dr. Odumuyiwa</li>
+                    <li>Dr. Rufai</li>
+                    <li>Dr. Fashina</li>
+                </ul>
+            </div></td>
+            <td><div class = "col-md-8 mx-auto" style="margin:auto;"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" >View</button></div></td>
             </tr>
             
-            <tr class="text-center">
-                <th scope="row">2</th>
-                <td>Scale 2</td>
-                <td>10</td>
-                <td>15</td>
-                <td>15</td>
-                <td>40</td>
-                <td>20</td>
-                <td><div class = "col-md-8 mx-auto"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 pull-left" >Edit Scale</button><button type="button" class="btn btn-red btn-rounded btn-sm my-0 red pull-right" >Delete Scale</button></div></td>
+            <tr style="text-align:center;">
+                <th scope="row">1</th>
+                <td>Project 1</td>
+                <td>Seyikemi Sojirin</td>
+                <td><div>
+                    <ul>
+                        <li>Dr. Odumuyiwa</li>
+                       
+                    </ul>
+                </div></td>
+                <td><div class = "col-md-8 mx-auto"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" >View</button></div></td>
                 </tr>
-                <tr style="text-align:center;">
-                    <th scope="row">3</th>
-                    <td>Scale Custom</td>
-                    <td>10</td>
-                    <td>15</td>
-                    <td>15</td>
-                    <td>40</td>
-                    <td>20</td>
-                    <td><div class = "col-md-8 mx-auto"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 pull-left">Edit Scale</button><button type="button" class="btn btn-red btn-rounded btn-sm my-0 red pull-right" >Delete Scale</button></div></td>
-                    </tr>
+               
     </tbody>
     <!--Table body-->
 
@@ -145,13 +136,9 @@
             </div>
             
             <div class="modal-body mx-3">
-                    <div class="md-form mb-5">
-                            <input type="text" id="form3" class="form-control validate">
-                            <label for="form3">NAME</label>
-                        </div>
                 <div class="md-form mb-5">
                     <input type="text" id="form3" class="form-control validate">
-                    <label for="form3">ABSTRACT</label>
+                    <label data-error="wrong" data-success="right" for="form3">ABSTRACT</label>
                 </div>
 
                 <div class="md-form mb-5">
@@ -190,13 +177,13 @@
  <!-- SCRIPTS -->
    
     <!-- JQuery -->
-    <script type="text/javascript" src="MDB Free/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="MDB Free/js/popper.min.js"></script>
+    <script type="text/javascript" src="js/popper.min.js"></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="MDB Free/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="MDB Free/js/mdb.min.js"></script>
+    <script type="text/javascript" src="js/mdb.min.js"></script>
 </body>
 
 </html>
