@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Project Assessment Application</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<style>
+		.header-image{
+			height: 100%;
+			width: 100%;
+
+		}
+		
+		.header-image h1,P,hr{
+			margin-left: 16%;
+			margin-right: 15%;
+		}
+
+		.image{
+			position: absolute;
+			background-image: url('img/pic.jpg');
+			background-size: cover;
+			background-repeat: no-repeat;
+			width: inherit;
+			height: inherit;
+			background-position: center;
+		}
+		.image-overlay{
+			width: inherit;
+			height: inherit;
+			position: absolute;
+			background-color: black;
+			opacity: 0.6;
+			z-index: 2;
+		}
+		.text{
+			position: absolute;
+			color: rgba(255, 255, 255, 0.719);
+			z-index: 2;
+			font-size: 2em;
+			margin-top: 3%;
+		}
+		.text a{
+			text-decoration: none;
+			padding:1%;
+			background-color:#1B98E0;
+			color:  rgba(255, 255, 255, 0.719);
+			margin-left: 16%;
+			
+		}
+		a:hover{
+			color:#1B98E0;
+			background-color: transparent;
+		}
+	</style>
+</head>
+<body>
+	<div  class="header-image">
+		<div class="image"></div>
+		<div class="image-overlay"></div>
+		<div class="text"> 
+			<h1><img src="img/logo.PNG" style="width:100px; height:80px"> PROJECT ASSESSMENT APPLICATION </h1> <hr>
+			<p>WRITE, SUBMIT AND EXAMINE PROJECTS WITH EASE</p><br><br>
+			<a href="#"> STUDENT LOGIN</a>
+			<a href="#"> EXAMINER LOGIN</a>
+		</div>
+	</div>
+</body>
+</html>
