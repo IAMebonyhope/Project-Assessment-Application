@@ -49,7 +49,7 @@
 
     <div id="mySidenav" class="sidenav" style="padding-top:150px;">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="padding-top:80px;">&times;</a>
-            <a class="nav-link" href="AdminDashboard_students.html">Submit Projects <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="AdminDashboard_students.html">Submit Project <span class="sr-only">(current)</span></a>
             <hr>
             <a class="nav-link" href="AdminDashboard_examiners.html">Drafts</a>
             <hr>

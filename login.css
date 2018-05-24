@@ -1,0 +1,40 @@
+body {
+    background: url('background.jpg') no-repeat;
+    background-size: 100% 100%;
+}
+
+hr{
+    color: #00b0ff;
+    width: 80%;
+}
+
+.form {
+    width: 60%;
+    margin: 10% auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.input-control {
+    width: 80%;
+    margin: 5px auto;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-control {
+    min-width: 100px;
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #00b0ff;
+    color: white
+}
+
+.btn-control:hover,
+.btn-control:active {
+    background-color: blue;
+}
