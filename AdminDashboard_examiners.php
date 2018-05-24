@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Material Design Bootstrap</title>
+    <title>Examiner </title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -27,16 +27,42 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+<<<<<<< HEAD
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="AdminDashboard_students.html">Students </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Examiners<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Create student account</a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="#">Create examiner account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="gradingScale.html">Grading Scale</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Projects</a>
+                </li>
+               
+            </ul>
+            <ul class="navbar-nav nav-flex-icons ">
+=======
 
 
         <div class="collapse navbar-collapse " id="navbarSupportedContent">
             <ul class="navbar-nav nav-flex-icons">
+>>>>>>> 7a85b37607dea5d3accfa42f4ffd1885be9350dd
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
                     <div class="dropdown-menu dropdown-menu-right z-depth-5">
                         <a class="dropdown-item" href="#">Profile</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Change Password</a>
+                        <a class="dropdown-item" href="change-password.html">Change Password</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Logout</a>
                        
