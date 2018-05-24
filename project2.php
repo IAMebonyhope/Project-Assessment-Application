@@ -20,7 +20,7 @@
 
   <style>
     .bg-dark{
-      background-color: #020550 !important;
+      background-color: #00b0ff !important;
     }
     table a{
       text-decoration: none !important;
@@ -43,14 +43,14 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
               <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <a class="nav-link" href="profile.html">
+                <a class="nav-link" href="profile.php">
                   <i class="fa fa-fw fa-dashboard"></i>
                   <span class="nav-link-text">Profile</span>
                 </a>
               </li>
               
               <li class="nav-item" class="active" data-toggle="tooltip" data-placement="right" title="Tables">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="tables.php">
                   <i class="fa fa-fw fa-table"></i>
                   <span class="nav-link-text">Assigned Projects</span>
                 </a>
@@ -63,7 +63,7 @@
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseExamplePages">
                   <li>
-                    <a href="change-password.html"> Change Password</a>
+                    <a href="change-password.php"> Change Password</a>
                   </li>
                   <li>
                     <a href="login.html">Log out</a>
