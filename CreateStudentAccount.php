@@ -78,7 +78,7 @@
             <!--Header-->
             <div class="modal-header primary-color white-text">
                 <h4 class="title">
-                    <i class="fa fa-pencil"></i> Contact form</h4>
+                    <i class="fa fa-pencil"></i> Create Student Account</h4>
                 <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -89,30 +89,49 @@
                 <!-- Material input name -->
                 <div class="md-form form-sm">
                     <i class="fa fa-envelope prefix"></i>
-                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm">
-                    <label for="materialFormNameModalEx1">Your name</label>
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="firstName">
+                    <label for="materialFormNameModalEx1">First Name</label>
+                </div>
+
+                <div class="md-form form-sm">
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="lastName">
+                    <label for="materialFormNameModalEx1">Last Name</label>
+                </div>
+
+                 <div class="md-form form-sm">
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="maatricNo">
+                    <label for="materialFormNameModalEx1">Matriculation No.</label>
                 </div>
 
                 <!-- Material input email -->
                 <div class="md-form form-sm">
                     <i class="fa fa-lock prefix"></i>
-                    <input type="password" id="materialFormEmailModalEx1" class="form-control form-control-sm">
-                    <label for="materialFormEmailModalEx1">Your email</label>
+                    <input type="text" id="materialFormEmailModalEx1" class="form-control form-control-sm" name="email">
+                    <label for="materialFormEmailModalEx1">Email</label>
                 </div>
 
                 <!-- Material input subject -->
                 <div class="md-form form-sm">
                     <i class="fa fa-tag prefix"></i>
-                    <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm">
-                    <label for="materialFormSubjectModalEx1">Subject</label>
+                    <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="faculty">
+                    <label for="materialFormSubjectModalEx1">Faculty</label>
                 </div>
 
-                <!-- Material textarea message -->
                 <div class="md-form form-sm">
-                    <i class="fa fa-pencil prefix"></i>
-                    <textarea type="text" id="materialFormMessageModalEx1" class="md-textarea form-control"></textarea>
-                    <label for="materialFormMessageModalEx1">Your message</label>
+                    <i class="fa fa-tag prefix"></i>
+                    <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="dept">
+                    <label for="materialFormSubjectModalEx1">Department</label>
                 </div>
+
+                <div class="md-form form-sm">
+                    <i class="fa fa-tag prefix"></i>
+                    <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="level">
+                    <label for="materialFormSubjectModalEx1">Level</label>
+                </div>
+
+                
 
                 <div class="text-center mt-4 mb-2">
                     <button class="btn btn-primary">Send
