@@ -94,7 +94,7 @@
               </thead>
   
               <tbody>
-                  <td> <a href="gradedproject.html">MEDICAL TEST RESULT INFORMATION SYSTEM</a></td>
+                  <td> <a href="gradedproject.php">MEDICAL TEST RESULT INFORMATION SYSTEM</a></td>
                 </tr>
                 <tr>
                   <td> <a href="gradedproject.html">COURSE REGISTRATION AND RESULT PROCESSING SYSTEM </a></td>
