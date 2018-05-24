@@ -66,32 +66,37 @@ class Admin{
                 $query .= " " . $x;
             }
 
-            if(count(arrs) > 1){
+            if(count($arrs) > 1){
                 for($i = 1; $i < count($arrs); $i++){
+                    $query .= "  AND";
                     foreach($arrs[$i] as $x){
                         $query .= " " . $x;
-                    }
-
-                    $query .= "  AND";
+                    }    
                 }
             }
         }
-
-        $stmt = self::$conn->prepare( $query );
-        $stmt->execute();
-        $admins = $stmt->fetchAll();
         
-        if(($admins != null) && (is_array($admins))){
+       
+        try{
+            $stmt = self::$conn->prepare( $query );
+            $stmt->execute();
+            $admins = $stmt->fetchAll();
             
-            if($admins[1] == null){
-                return $admins[0];
+            if(($admins != null) && (is_array($admins))){
+                
+                if($admins[1] == null){
+                    return $admins[0];
+                }
+                else{
+                    return $admins;
+                }
             }
             else{
-                return $admins;
+                return "record not found";
             }
         }
-        else{
-            return "record not found";
+        catch(PDOEception $e){
+			//echo $e->getMessage();
         }
     }
 

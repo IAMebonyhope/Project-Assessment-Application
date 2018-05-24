@@ -13,17 +13,19 @@ class AdminController{
     //view projects//
     //assign project to one or more examiners
     //change password//
+    public $loginError = false;
 
 
     public function login($email, $password){
     
         if(($email == "") || ($password == "")){
             $error['general'] = "email and password cannot be empty";
+            $this->loginError = true;
             return $error;
         }
         else{
-            $email = $this->test_input($email);
-            $password = $this->test_input($password);
+            $email = '"'. $this->test_input($email). '"';
+            $password = '"'. $this->test_input($password) . '"';
 
             $admin = Admin::read([
                     ["email", "=", $email],
@@ -32,9 +34,11 @@ class AdminController{
             
             if((!is_array($admin)) || ($admin == null)){
                 $error['general'] = "invalid email or password";
+                $this->loginError = true;
                 return $error;
             }
             else{
+                $this->loginError = false;
                 return $admin;
             }
         }

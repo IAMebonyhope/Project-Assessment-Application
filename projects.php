@@ -22,12 +22,12 @@
    
 <!--Main Navigation-->
 <header>
-
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark light-blue accent-3 scrolling-navbar">
-        <a class="navbar-brand" href="#"><strong>Project Assesment Application</strong></a>
+        <a class="navbar-brand col-md-11 mx-auto" href="#"><strong> <span class="col-md-4" style="font-size:30px;cursor:pointer" onclick="openNav()" style="padding-right:20px;">&#9776;</span>Project Assesment Application</strong></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+<<<<<<< HEAD
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -43,7 +43,7 @@
                         <a class="nav-link" href="#">Create examiner account</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Grading Scale</a>
+                    <a class="nav-link" href="gradingScale.html">Grading Scale</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Projects</a>
@@ -51,12 +51,18 @@
                
             </ul>
             <ul class="navbar-nav nav-flex-icons ">
+=======
+
+
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav nav-flex-icons">
+>>>>>>> 7a85b37607dea5d3accfa42f4ffd1885be9350dd
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
                     <div class="dropdown-menu dropdown-menu-right z-depth-5">
                         <a class="dropdown-item" href="#">Profile</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Change Password</a>
+                        <a class="dropdown-item" href="change-password.html">Change Password</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Logout</a>
                        
@@ -67,27 +73,35 @@
         </div>
     </nav>
 
+    <div id="mySidenav" class="sidenav" style="padding-top:150px;">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="padding-top:80px;">&times;</a>
+            <a class="nav-link" href="AdminDashboard_students.html">Students <span class="sr-only">(current)</span></a>
+            <hr>
+            <a class="nav-link" href="AdminDashboard_examiners.html">Examiners</a>
+            <hr>
+            <a class="nav-link" href="gradingScale.html">Grading Scale</a>
+            <hr>
+            <a class="nav-link" href="projects.html">Projects</a>
+          </div>
+          
+      
+
 </header>
 
-<div style="padding-top:80px; margin: 30px;">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreateGradeScaleForm">Create Grading Scale</button>
-</div>
 
-<div>
+<div id="main" onclick="closeNav()">
+<div style="padding-top:80px; margin:30px;">
      <!--Table-->
-  <table class="table table-bordered">
+  <table class="table table-bordered" >
     
     <!--Table head-->
     <thead class="mdb-color darken-3">
         <tr class="text-white" style="text-align:center;">
             <th>#</th>
-            <th style="width:25%">SCALE NAME</th>
-            <th style="width:10%">ABSTRACT</th>
-            <th style="width:10%">LITERATURE REVIEW</th>
-            <th style="width:10%">METHODOLOGY</th>
-            <th style="width:10%">ANALYSIS</th>
-            <th style="width:10%">CONCLUSION</th>
-            <th style="width:25%">EDIT SCALE</th>
+            <th style="width:25%">PROJECT NAME</th>
+            <th style="width:25%">SUBMITTED BY</th>
+            <th style="width:25%">ASSIGNED TO</th>
+            <th style="width:25%"></th>
         </tr>
     </thead>
     <!--Table head-->
@@ -96,35 +110,31 @@
     <tbody class="white font-weight-bold" >
         <tr style="text-align:center;">
             <th scope="row">1</th>
-            <td>Scale 1</td>
-            <td>10</td>
-            <td>15</td>
-            <td>15</td>
-            <td>40</td>
-            <td>20</td>
-            <td><div class = "col-md-8 mx-auto"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 pull-left" >Edit Scale</button><button type="button" class="btn btn-red btn-rounded btn-sm my-0 red pull-right" >Delete Scale</button></div></td>
+            <td>Project 1</td>
+            <td>Seyikemi Sojirin</td>
+            <td><div>
+                <ul>
+                    <li>Dr. Odumuyiwa</li>
+                    <li>Dr. Rufai</li>
+                    <li>Dr. Fashina</li>
+                </ul>
+            </div></td>
+            <td><div class = "col-md-8 mx-auto" style="margin:auto;"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" >View</button></div></td>
             </tr>
             
-            <tr class="text-center">
-                <th scope="row">2</th>
-                <td>Scale 2</td>
-                <td>10</td>
-                <td>15</td>
-                <td>15</td>
-                <td>40</td>
-                <td>20</td>
-                <td><div class = "col-md-8 mx-auto"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 pull-left" >Edit Scale</button><button type="button" class="btn btn-red btn-rounded btn-sm my-0 red pull-right" >Delete Scale</button></div></td>
+            <tr style="text-align:center;">
+                <th scope="row">1</th>
+                <td>Project 1</td>
+                <td>Seyikemi Sojirin</td>
+                <td><div>
+                    <ul>
+                        <li>Dr. Odumuyiwa</li>
+                       
+                    </ul>
+                </div></td>
+                <td><div class = "col-md-8 mx-auto"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" >View</button></div></td>
                 </tr>
-                <tr style="text-align:center;">
-                    <th scope="row">3</th>
-                    <td>Scale Custom</td>
-                    <td>10</td>
-                    <td>15</td>
-                    <td>15</td>
-                    <td>40</td>
-                    <td>20</td>
-                    <td><div class = "col-md-8 mx-auto"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 pull-left">Edit Scale</button><button type="button" class="btn btn-red btn-rounded btn-sm my-0 red pull-right" >Delete Scale</button></div></td>
-                    </tr>
+               
     </tbody>
     <!--Table body-->
 
@@ -145,13 +155,9 @@
             </div>
             
             <div class="modal-body mx-3">
-                    <div class="md-form mb-5">
-                            <input type="text" id="form3" class="form-control validate">
-                            <label for="form3">NAME</label>
-                        </div>
                 <div class="md-form mb-5">
                     <input type="text" id="form3" class="form-control validate">
-                    <label for="form3">ABSTRACT</label>
+                    <label data-error="wrong" data-success="right" for="form3">ABSTRACT</label>
                 </div>
 
                 <div class="md-form mb-5">
@@ -181,12 +187,31 @@
     </div>
 </div>
 
-
+</div>
                 
 
+<script>
+    function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+    document.body.style.backgroundColor = "white";
+}
 
 
 
+<<<<<<< HEAD
+=======
+</script>
+
+
+>>>>>>> 7a85b37607dea5d3accfa42f4ffd1885be9350dd
  <!-- SCRIPTS -->
    
     <!-- JQuery -->
