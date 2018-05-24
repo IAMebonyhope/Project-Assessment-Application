@@ -10,20 +10,22 @@ class AdminController{
     //create grade scheme//
     //view all students//
     //view all examiners//
-    //view projects
+    //view projects//
     //assign project to one or more examiners
     //change password//
+    public $loginError = false;
 
 
     public function login($email, $password){
     
         if(($email == "") || ($password == "")){
             $error['general'] = "email and password cannot be empty";
+            $this->loginError = true;
             return $error;
         }
         else{
-            $email = $this->test_input($email);
-            $password = $this->test_input($password);
+            $email = '"'. $this->test_input($email). '"';
+            $password = '"'. $this->test_input($password) . '"';
 
             $admin = Admin::read([
                     ["email", "=", $email],
@@ -32,9 +34,11 @@ class AdminController{
             
             if((!is_array($admin)) || ($admin == null)){
                 $error['general'] = "invalid email or password";
+                $this->loginError = true;
                 return $error;
             }
             else{
+                $this->loginError = false;
                 return $admin;
             }
         }
@@ -206,12 +210,42 @@ class AdminController{
 
     }
 
-    //nfghjk
-    public function view_projects($studentId){
-        $projects = Project::find($studentId);
+
+    public function view_projects(){
+        $projects = Project::read();
 
         if(is_array($projects)){
+            foreach($projects as $project){
+                $x = Project_Examiner::read([
+                    ["projectId", "=", $project['Id']],
+                    ]);
+                if($x == null){
+                    $project['status'] = "unassigned";
+                }
+                else{
+                    if($project['score'] == null){
+                        $project['status'] = "assigned";
+                    }
+                    else{
+                        $project['status'] = "graded";
+                    }
+                }
+            }
             return $projects;
+        }
+        else{
+            return "no project found";
+        }
+    }
+
+
+    public function view_project($projectId){
+        $project = Project::read([
+                    ["id", "=", $projectId],
+                    ]);
+
+        if(is_array($project)){
+            return $project;
         }
         else{
             return "no project found";
@@ -235,6 +269,7 @@ class AdminController{
         $examiners = Examiner::read();
 
         if(is_array($examiners)){
+
             return $examiners;
         }
         else{

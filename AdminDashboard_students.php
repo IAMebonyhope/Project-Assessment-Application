@@ -29,31 +29,9 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-<<<<<<< HEAD
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Students <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="AdminDashboard_examiners.html">Examiners</a>
-                </li>
-               
-                <li class="nav-item">
-                    <a class="nav-link" href="gradingScale.html">Grading Scale</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Projects</a>
-                </li>
-               
-            </ul>
+           
             <ul class="navbar-nav nav-flex-icons ">
-=======
-
-
-        <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <ul class="navbar-nav nav-flex-icons">
->>>>>>> 7a85b37607dea5d3accfa42f4ffd1885be9350dd
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
                     <div class="dropdown-menu dropdown-menu-right z-depth-5">
@@ -72,13 +50,13 @@
 
     <div id="mySidenav" class="sidenav" style="padding-top:150px;">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="padding-top:80px;">&times;</a>
-            <a class="nav-link" href="AdminDashboard_students.html">Students <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="AdminDashboard_students.php">Students <span class="sr-only">(current)</span></a>
             <hr>
-            <a class="nav-link" href="AdminDashboard_examiners.html">Examiners</a>
+            <a class="nav-link" href="AdminDashboard_examiners.php">Examiners</a>
             <hr>
-            <a class="nav-link" href="gradingScale.html">Grading Scale</a>
+            <a class="nav-link" href="gradingScale.php">Grading Scale</a>
             <hr>
-            <a class="nav-link" href="projects.html">Projects</a>
+            <a class="nav-link" href="projects.php">Projects</a>
           </div>
           
       
@@ -94,52 +72,78 @@
             <!--Content-->
             <div class="modal-content">
       
-                <!--Header-->
-                <div class="modal-header primary-color white-text">
-                    <h4 class="title">
-                        <i class="fa fa-pencil"></i> Contact form</h4>
-                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
+               <!--Header-->
+            <div class="modal-header primary-color white-text">
+                <h4 class="title">
+                    <i class="fa fa-pencil"></i> Create Student Account</h4>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
                 <!--Body-->
                 <div class="modal-body">
-      
-                    <!-- Material input name -->
-                    <div class="md-form form-sm">
-                        <i class="fa fa-envelope prefix"></i>
-                        <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm">
-                        <label for="materialFormNameModalEx1">Your name</label>
-                    </div>
-      
-                    <!-- Material input email -->
-                    <div class="md-form form-sm">
-                        <i class="fa fa-lock prefix"></i>
-                        <input type="password" id="materialFormEmailModalEx1" class="form-control form-control-sm">
-                        <label for="materialFormEmailModalEx1">Your email</label>
-                    </div>
-      
-                    <!-- Material input subject -->
-                    <div class="md-form form-sm">
-                        <i class="fa fa-tag prefix"></i>
-                        <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm">
-                        <label for="materialFormSubjectModalEx1">Subject</label>
-                    </div>
-      
-                    <!-- Material textarea message -->
-                    <div class="md-form form-sm">
-                        <i class="fa fa-pencil prefix"></i>
-                        <textarea type="text" id="materialFormMessageModalEx1" class="md-textarea form-control"></textarea>
-                        <label for="materialFormMessageModalEx1">Your message</label>
-                    </div>
-      
-                    <div class="text-center mt-4 mb-2">
-                        <button class="btn btn-primary">Send
-                            <i class="fa fa-send ml-2"></i>
-                        </button>
-                    </div>
-      
+
+                <!-- Material input name -->
+                <div class="md-form form-sm">
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="firstName">
+                    <label for="materialFormNameModalEx1">First Name</label>
                 </div>
+
+                <div class="md-form form-sm">
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="lastName">
+                    <label for="materialFormNameModalEx1">Last Name</label>
+                </div>
+
+                 <div class="md-form form-sm">
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="matricNo">
+                    <label for="materialFormNameModalEx1">Matriculation No.</label>
+                </div>
+
+                <!-- Material input email -->
+                <div class="md-form form-sm">
+                    <i class="fa fa-lock prefix"></i>
+                    <input type="text" id="materialFormEmailModalEx1" class="form-control form-control-sm" name="email">
+                    <label for="materialFormEmailModalEx1">Email</label>
+                </div>
+
+                <!-- Material input subject -->
+                <div class="md-form form-sm">
+                    <i class="fa fa-tag prefix"></i>
+                    <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="faculty">
+                    <label for="materialFormSubjectModalEx1">Faculty</label>
+                </div>
+
+                <div class="md-form form-sm">
+                    <i class="fa fa-tag prefix"></i>
+                    <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="dept">
+                    <label for="materialFormSubjectModalEx1">Department</label>
+                </div>
+
+                <div class="md-form form-sm">
+                    <i class="fa fa-tag prefix"></i>
+                    <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="level">
+                    <label for="materialFormSubjectModalEx1">Level</label>
+                </div>
+
+                <div class="md-form form-sm">
+                    <i class="fa fa-tag prefix"></i>
+                    <input type="password" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="password">
+                    <label for="materialFormSubjectModalEx1">Password</label>
+                </div>
+
+                
+
+                <div class="text-center mt-4 mb-2">
+                    <button class="btn btn-primary">Create Account
+                        <i class="fa fa-send ml-2"></i>
+                    </button>
+                </div>
+
+            </div>
+                
             </div>
             <!--/.Content-->
         </div>
@@ -394,8 +398,6 @@
 
 
 
-<<<<<<< HEAD
-=======
 
 
 
@@ -430,7 +432,6 @@
 
 
 
->>>>>>> 7a85b37607dea5d3accfa42f4ffd1885be9350dd
 <!-- Modal: modalProfile -->
 </body>
 </html>

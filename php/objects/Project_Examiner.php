@@ -1,11 +1,11 @@
 <?php
 require_once 'php/Database.php';
 
-class Admin{
+class Project_Examiner{
  
     // database connection and table name
     private static $conn;
-    private static $table_name = "admins";
+    private static $table_name = "project_examiner";
     private static $initialized;
 
  
@@ -19,6 +19,7 @@ class Admin{
             return;
     }
  
+
     
     //read the data where $id = id of the row
     public static function find($id){
@@ -31,20 +32,21 @@ class Admin{
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
-        $admins = $stmt->fetchAll();
+        $projects = $stmt->fetchAll();
 
-        if(($admins != null) && (is_array($admins))){
+        if(($projects != null) && (is_array($projects))){
             
-            if($admins[1] == null){
-                return $admins[0];
+            if($projects[1] == null){
+                return $projects[0];
             }
             else{
-                return $admins;
+                return $projects;
             }
         }
         else{
             return "record not found";
         }
+        
         
     }
 
@@ -66,37 +68,32 @@ class Admin{
                 $query .= " " . $x;
             }
 
-            if(count($arrs) > 1){
+            if(count(arrs) > 1){
                 for($i = 1; $i < count($arrs); $i++){
-                    $query .= "  AND";
                     foreach($arrs[$i] as $x){
                         $query .= " " . $x;
-                    }    
+                    }
+
+                    $query .= "  AND";
                 }
             }
         }
+
+        $stmt = self::$conn->prepare( $query );
+        $stmt->execute();
+        $projects = $stmt->fetchAll();
         
-       
-        try{
-            $stmt = self::$conn->prepare( $query );
-            $stmt->execute();
-            $admins = $stmt->fetchAll();
+        if(($projects != null) && (is_array($projects))){
             
-            if(($admins != null) && (is_array($admins))){
-                
-                if($admins[1] == null){
-                    return $admins[0];
-                }
-                else{
-                    return $admins;
-                }
+            if($projects[1] == null){
+                return $projects[0];
             }
             else{
-                return "record not found";
+                return $projects;
             }
         }
-        catch(PDOEception $e){
-			//echo $e->getMessage();
+        else{
+            return "record not found";
         }
     }
 
@@ -106,10 +103,10 @@ class Admin{
     public static function create($arr){
         self::initialize();
 
-        $query = "INSERT INTO " . self::$table_name. " (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)";  
+        $query = "INSERT INTO " . self::$table_name. " (adminId, examinerId, projectId, gradeId) VALUES (:adminId, :examinerId, :projectId, :gradeId)";  
         $stmt = self::$conn->prepare( $query );
 
-        if($stmt->execute($arrs)){
+        if($stmt->execute($arr)){
             return true;
         }
         else{
@@ -117,21 +114,6 @@ class Admin{
         }
     }
 
-
-    //pass in associative array of all details and id of record to be updated
-    public static function update($arrs){
-        $query = "UPDATE " . $this->table_name. " (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password) WHERE id = :id";  
-        $stmt = $this->conn->prepare( $query );
-
-        //$stmt->bindParam(':id', $arrs['id']);
-
-        if($stmt->execute($arrs)){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 
     //delete the record from the table
     function delete(){
