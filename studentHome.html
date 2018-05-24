@@ -22,26 +22,15 @@
    
 <!--Main Navigation-->
 <header>
-
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark light-blue accent-3 scrolling-navbar">
-        <a class="navbar-brand" href="#"><strong>Project Assesment Application</strong></a>
+        <a class="navbar-brand col-md-11 mx-auto" href="#"><strong> <span class="col-md-4" style="font-size:30px;cursor:pointer" onclick="openNav()" style="padding-right:20px;">&#9776;</span>Project Assesment Application</strong></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Submit Project <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Drafts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Submitted Projects</a>
-                </li>
-               
-            </ul>
-            <ul class="navbar-nav nav-flex-icons ">
+
+
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav nav-flex-icons">
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
                     <div class="dropdown-menu dropdown-menu-right z-depth-5">
@@ -58,8 +47,25 @@
         </div>
     </nav>
 
+    <div id="mySidenav" class="sidenav" style="padding-top:150px;">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="padding-top:80px;">&times;</a>
+            <a class="nav-link" href="AdminDashboard_students.html">Submit Projects <span class="sr-only">(current)</span></a>
+            <hr>
+            <a class="nav-link" href="AdminDashboard_examiners.html">Drafts</a>
+            <hr>
+            <a class="nav-link" href="gradingScale.html">Submitted Projects</a>
+            
+          </div>
+          
+      
+
+
 </header>
 <!--Main Navigation-->
+
+<div  id="main" onclick="closeNav()">
+
+
        <div class="container">
         <ul class="progressbar ">
             <li class="active" id="progressAbstract">Abstract</li>
@@ -79,14 +85,14 @@
                 <!-- Default input -->
                 <label for="inputEmail3" class="col-sm-4 col-form-label"  style="font-weight: bold; text-align: center;">Project Title</label>
                 <div  class="col-sm-8" >
-                    <input type="email" class="form-control "  style="width:70%" id="inputEmail3" placeholder="Enter Title...">
+                    <input type="email" class="form-control "  style="width:70%" id="inputEmail3" placeholder="Enter Title..." name="title">
                 </div>
             </div>
 
             <div class="form-group row" style="padding-top:50px; width:100%; padding-left: 30px; padding-right: 30px;">
                 <label for="inputEmail13" class="col-sm-4 col-form-label"  style="font-weight: bold; text-align: center;">Abstract</label>
             <div class="col-sm-8">
-                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10"></textarea>
+                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="abstract"></textarea>
 
             </div>
                 
@@ -114,7 +120,7 @@
             <div class="form-group row" style="padding-top:50px; width:100%; padding-left: 30px; padding-right: 30px;">
                 <label for="inputEmail13" class="col-sm-4 col-form-label"  style="font-weight: bold; text-align: center;">Literature Review</label>
             <div class="col-sm-8">
-                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10"></textarea>
+                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="litReview"></textarea>
 
             </div>
                 
@@ -141,7 +147,7 @@
             <div class="form-group row" style="padding-top:50px; width:100%; padding-left: 30px; padding-right: 30px;">
                 <label for="inputEmail13" class="col-sm-4 col-form-label"  style="font-weight: bold; text-align: center;">Methodology</label>
             <div class="col-sm-8">
-                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10"></textarea>
+                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="methodology"></textarea>
 
             </div>
                 
@@ -167,7 +173,7 @@
             <div class="form-group row" style="padding-top:50px; width:100%; padding-left: 30px; padding-right: 30px;">
                 <label for="inputEmail13" class="col-sm-4 col-form-label"  style="font-weight: bold; text-align: center;">Analysis</label>
             <div class="col-sm-8">
-                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10"></textarea>
+                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="analysis"></textarea>
 
             </div>
                 
@@ -195,7 +201,7 @@
             <div class="form-group row" style="padding-top:50px; width:100%; padding-left: 30px; padding-right: 30px;">
                 <label for="inputEmail13" class="col-sm-4 col-form-label"  style="font-weight: bold; text-align: center;">Conclusion</label>
             <div class="col-sm-8">
-                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10"></textarea>
+                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="conclusion"></textarea>
 
             </div>
                 
@@ -213,11 +219,30 @@
             </form>
     </div>
     
+</div>
   
     <!-- /Start your project here-->
 
     <!-- SCRIPTS -->
    
+    <script>
+        function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+        document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    }
+    
+    /* Set the width of the side navigation to 0 and the left margin of the page content to 0, and the background color of body to white */
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+        document.body.style.backgroundColor = "white";
+    }
+    
+    
+    
+    </script>
+
     <!-- JQuery -->
     <script type="text/javascript" src="MDB Free/js/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap tooltips -->
@@ -271,16 +296,19 @@
   $("#btnPrev_Analysis").click(function(){
     $("#formAnalysis").hide();
     $("#formMethodology").show();
+    $("#progressAnalysis").removeClass("active");
 });
 
 $("#btnPrev_Methodology").click(function(){
     $("#formMethodology").hide();
     $("#formLiterature").show();
+    $("#progressMethodology").removeClass("active");
 });
 
 $("#btnPrev_Literature").click(function(){
     $("#formLiterature").hide();
     $("#formAbstract").show();
+    $("#progressLiterature").removeClass("active");
 });
 
     </script>
