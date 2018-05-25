@@ -27,36 +27,9 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-<<<<<<< HEAD
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Students <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="AdminDashboard_examiners.html">Examiners</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Create student account</a>
-                </li>
-                <li class="nav-item">
-                        <a class="nav-link" href="#">Create examiner account</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="gradingScale.html">Grading Scale</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Projects</a>
-                </li>
-               
-            </ul>
-            <ul class="navbar-nav nav-flex-icons ">
-=======
-
-
+      
         <div class="collapse navbar-collapse " id="navbarSupportedContent">
             <ul class="navbar-nav nav-flex-icons">
->>>>>>> 7a85b37607dea5d3accfa42f4ffd1885be9350dd
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="dropdown" aria-haspopup="true"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
                     <div class="dropdown-menu dropdown-menu-right z-depth-5">
@@ -92,6 +65,10 @@
 <div id="main" onclick="closeNav()">
 <div style="padding-top:80px; margin:30px;">
      <!--Table-->
+
+<div class="text-center"><p>Assigned Projects</p>
+<hr>
+</div>
   <table class="table table-bordered" >
     
     <!--Table head-->
@@ -119,7 +96,7 @@
                     <li>Dr. Fashina</li>
                 </ul>
             </div></td>
-            <td><div class = "col-md-8 mx-auto" style="margin:auto;"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" >View</button></div></td>
+            <td><div class = "col-md-8 mx-auto" style="margin:auto;"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" >View Project Details</button></div></td>
             </tr>
             
             <tr style="text-align:center;">
@@ -133,6 +110,54 @@
                     </ul>
                 </div></td>
                 <td><div class = "col-md-8 mx-auto"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" >View</button></div></td>
+                </tr>
+               
+    </tbody>
+    <!--Table body-->
+
+</table>
+<!--Table-->
+
+</div>
+
+
+<div class="text-center"><p>Unassigned Projects</p>
+<hr>
+</div>
+  <table class="table table-bordered" >
+    
+    <!--Table head-->
+    <thead class="mdb-color darken-3">
+        <tr class="text-white" style="text-align:center;">
+            <th>#</th>
+            <th style="width:25%">PROJECT NAME</th>
+            <th style="width:25%">SUBMITTED BY</th>
+            <th style="width:25%">ASSIGN PROJECT</th>
+            <th style="width:25%"></th>
+        </tr>
+    </thead>
+    <!--Table head-->
+
+    <!--Table body-->
+    <tbody class="white font-weight-bold" >
+        <tr style="text-align:center;">
+            <th scope="row">1</th>
+            <td>Project 1</td>
+            <td>Seyikemi Sojirin</td>
+            <td><div>
+            <button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 col-md-6 mx-auto" data-toggle="modal" data-target="#modalPoll">Assign Project</button>
+            </div></td>
+            <td><div class = "col-md-12 mx-auto" style="margin:auto;"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 col-md-6 mx-auto" >View Project Details</button></div></td>
+            </tr>
+            
+            <tr style="text-align:center;">
+                <th scope="row">1</th>
+                <td>Project 1</td>
+                <td>Seyikemi Sojirin</td>
+                <td><div>
+                <button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 col-md-6 mx-auto" data-toggle="modal" data-target="#modalPoll">Assign Project</button>
+                </div></td>
+                <td><div class = "col-md-8 mx-auto"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" >View Project Details</button></div></td>
                 </tr>
                
     </tbody>
@@ -189,6 +214,122 @@
 
 </div>
                 
+<div class="modal fade" id="modalPoll" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-backdrop="false">
+        <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
+          <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header light-blue accent-3">
+              <p class="heading lead">Assign Project
+              </p>
+      
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="white-text">×</span>
+              </button>
+            </div>
+      
+            <!--Body-->
+            <div class="modal-body">
+              <div class="text-center">
+                <i class="fa fa-file-text-o fa-4x mb-3 animated rotateIn"></i>
+                <p>
+                  <strong>Project Title</strong>
+                </p>
+                <p>Matriculation Number:
+                  <strong></strong>140805020</strong>
+                </p>
+                <p>Name:
+                      <strong></strong>Seyikemi Sojirin</strong>
+                    </p>
+              </div>
+      
+              <hr>
+              <div class="wrapper">
+                      <span class="title">Select Examiners</span>
+                      <hr/>
+                      <div class="select-wrapper">
+                              <span class="autocomplete-select"></span>
+                            </div>
+                            <script src="MDB Free/js/bundle.min.js"></script>
+                            <script>
+                              
+                            
+                              var autocomplete = new SelectPure(".autocomplete-select", {
+                                options: [
+                                  {
+                                    label: "Dr. Sawyerr",
+                                    value: "sa",
+                                  },
+                                  {
+                                    label: "Dr. Odumiyuwa",
+                                    value: "od",
+                                  },
+                                  {
+                                    label: "Dr. Rufai",
+                                    value: "ru",
+                                  },
+                                  {
+                                    label: "Dr. Chika",
+                                    value: "ch",
+                                  },
+                                  {
+                                    label: "Dr. Ajayi",
+                                    value: "aj",
+                                  },
+                                  {
+                                    label: "Dr. Fashina",
+                                    value: "fa",
+                                  }
+                                 
+                                ],
+                                value: ["aj"],
+                                multiple: true,
+                                autocomplete: true,
+                                icon: "fa fa-times",
+                                onChange: value => { console.log(value); },
+                              });
+                            </script>
+                           
+                    </div>
+                  <hr>
+              <!-- Radio -->
+              <p class="text-center">
+                <strong>Choose Grading Scale</strong>
+              </p>
+              <div class="form-check mb-4">
+            <input class="form-check-input" name="group1" type="radio" id="radio-179" value="option1" checked>
+            <label class="form-check-label" for="radio-179">Scale 1</label>
+            <label style="padding-left:5px">|AB:10 |LR:30 |MT:20 |AN:20 |CN:20 |</label>
+          </div> 
+      
+          <div class="form-check mb-4">
+            <input class="form-check-input" name="group1" type="radio" id="radio-279" value="option2">
+            <label class="form-check-label" for="radio-179">Scale 2</label>
+            <label style="padding-left:5px">|AB:10 |LR:30 |MT:20 |AN:20 |CN:20 |</label>
+          </div>
+      
+          <div class="form-check mb-4">
+            <input class="form-check-input" name="group1" type="radio" id="radio-379" value="option3">
+            <label class="form-check-label" for="radio-179">Scale 3</label>
+            <label style="padding-left:5px">|AB:10 |LR:30 |MT:20 |AN:20 |CN:20 |</label>
+          </div>
+          <div class="form-check mb-4">
+            <input class="form-check-input" name="group1" type="radio" id="radio-479" value="option4">
+            <label class="form-check-label" for="radio-179">Scale 4</label>
+            <label style="padding-left:5px">|AB:10 |LR:30 |MT:20 |AN:20 |CN:20 |</label>
+          </div>
+          <div class="form-check mb-4">
+            <input class="form-check-input" name="group1" type="radio" id="radio-579" value="option5">
+            <label class="form-check-label" for="radio-179">Scale 5</label>
+            <label style="padding-left:5px">|AB:10 |LR:30 |MT:20 |AN:20 |CN:20 |</label>
+          </div>
+              <!-- Radio -->
+      
+              <div><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 col-md-6 mx-auto" >Assign </button></div>
+      
+            </div>
+
+
 
 <script>
     function openNav() {
@@ -206,12 +347,9 @@ function closeNav() {
 
 
 
-<<<<<<< HEAD
-=======
 </script>
 
 
->>>>>>> 7a85b37607dea5d3accfa42f4ffd1885be9350dd
  <!-- SCRIPTS -->
    
     <!-- JQuery -->

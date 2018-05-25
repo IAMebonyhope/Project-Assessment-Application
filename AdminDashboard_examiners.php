@@ -147,7 +147,37 @@
     Create Examiner Account
 </button>
 </div>
-    
+
+ <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                         
+                          <h4 style="margin:auto; float:left;" class="modal-title" id="myModalLabel">Examiner Profile</h4>
+                          </div>
+                      <div class="modal-body">
+                          <center>
+                          <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"  width="140" height="140" border="0" class="img-circle"></a>
+                          <h4  class="media-heading" style="padding-top:40px;">Dr. Babatunde Sawyerr</h4>
+                          <p>Computer Science</p>
+                          
+                         
+                          </center>
+                          <hr>
+                          <center>
+                          
+                          <br>
+                          </center>
+                      </div>
+                      <div class="modal-footer">
+                          <center>
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Done</button>
+                          </center>
+                      </div>
+                  </div>
+              </div>
+          </div>
+</div>
 
 <div style="padding-top:20px; margin: 30px;">
 
@@ -171,7 +201,7 @@
             <tr >
                 <th scope="row">1</th>
                
-                <td><div><p style="float:left;">Dr. Babatunde Sawyerr</p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Examiner profile</button></div></td>
+                <td><div><p style="float:left;">Dr. Babatunde Sawyerr</p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;"  data-toggle="modal" data-target="#myModal">View Examiner profile</button></div></td>
                 <td><div><p style="float:left;">3 projects</p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Assigned Projects</button></div></td>
                
             </tr>
