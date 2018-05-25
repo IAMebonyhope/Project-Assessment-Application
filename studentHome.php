@@ -1,3 +1,37 @@
+<?php
+include_once('php/controllers/StudentController.php');
+session_start();
+if(!isset($_SESSION['student_id'])) header('location:student_login.php');
+
+$admCtrl = new StudentController;
+
+$error = array();
+$project = array();
+
+if(isset($_POST['create-project'])){
+    $project['title'] = $_POST['title'];
+    $project['abstract'] = $_POST['abstract'];
+    $project['litReview'] = $_POST['litReview'];
+    $project['methodology'] = $_POST['methodology'];
+    $project['analysis'] = $_POST['analysis'];
+    $project['conclusion'] = $_POST['conclusion'];
+    $project['studentId'] = $_SESSION['student_id'];
+
+    $result = $admCtrl->create_project($project);
+    
+    if($result === true){
+        header('Location: index.html');
+    }
+    else{
+        $error = $result;
+        
+    }
+    
+}
+
+ 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,8 +85,6 @@
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="padding-top:80px;">&times;</a>
             <a class="nav-link" href="AdminDashboard_students.html">Submit Project <span class="sr-only">(current)</span></a>
             <hr>
-            <a class="nav-link" href="AdminDashboard_examiners.html">Drafts</a>
-            <hr>
             <a class="nav-link" href="gradingScale.html">Submitted Projects</a>
             
           </div>
@@ -62,165 +94,136 @@
 
 </header>
 <!--Main Navigation-->
-
-<div  id="main" onclick="closeNav()">
-
-
-       <div class="container">
-        <ul class="progressbar ">
-            <li class="active" id="progressAbstract">Abstract</li>
-            <li id="progressLiterature">Literature Review</li>
-            <li id="progressMethodology">Methodology</li>
-            <li id="progressAnalysis">Analysis</li>
-            <li id="progressConclusion">Conclusion</li>
-    </ul>
-       </div>  
-       
+  
+    <form class="form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">  
        
     <div id="formAbstract" >
 
-        <form>
+        
+            <br/><br/>
+            <br/><br/>
+            <span class="error"><?php echo $error['general'];?></span><br/><br/>
             <!-- Grid row -->
             <div class="form-group row" style="padding-top:50px; width:100%; padding-left: 30px; padding-right: 30px;">
                 <!-- Default input -->
                 <label for="inputEmail3" class="col-sm-4 col-form-label"  style="font-weight: bold; text-align: center;">Project Title</label>
                 <div  class="col-sm-8" >
-                    <input type="email" class="form-control "  style="width:70%" id="inputEmail3" placeholder="Enter Title..." name="title">
+                    <input type="text" class="form-control "  style="width:100%" id="inputEmail3" placeholder="Enter Title..." name="title" value="<?php echo isset($_POST['title']) ? $_POST['title'] : ''; ?>">
+                    <span class="error"><?php echo $error['title'];?></span><br/>
                 </div>
             </div>
 
             <div class="form-group row" style="padding-top:50px; width:100%; padding-left: 30px; padding-right: 30px;">
                 <label for="inputEmail13" class="col-sm-4 col-form-label"  style="font-weight: bold; text-align: center;">Abstract</label>
             <div class="col-sm-8">
-                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="abstract"></textarea>
-
+                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="abstract"><?php echo isset($_POST['abstract']) ? $_POST['abstract'] : ''; ?></textarea>
+                <span class="error"><?php echo $error['abstract'];?></span><br/>
             </div>
                 
             </div>
             <div>
                     <p   class="light-blue-text"  style="float:left; padding-left:650px;;">*Maximum of 800 words</p>
-                    <div class="animated fadeInDown" style="float:right; padding-right:50px; margin:30px;">
-                       
-                        <button type="button" class="btn btn-primary light-blue accent-3 z-depth-1">Save as Draft</button>
-                        <button type="button" class="btn btn-primary light-blue accent-3 z-depth-1" id="btnNext_Abstract">Next</button>
-                    </div>
+                    
 
             </div>
            
-            </form>
+            
     </div>
 
    
 
     <div id="formLiterature" >
 
-        <form>
             <!-- Grid row -->
             
             <div class="form-group row" style="padding-top:50px; width:100%; padding-left: 30px; padding-right: 30px;">
                 <label for="inputEmail13" class="col-sm-4 col-form-label"  style="font-weight: bold; text-align: center;">Literature Review</label>
             <div class="col-sm-8">
-                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="litReview"></textarea>
-
+                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="litReview"><?php echo isset($_POST['litReview']) ? $_POST['litReview'] : ''; ?></textarea>
+                <span class="error"><?php echo $error['litReview'];?></span><br/>
             </div>
                 
             </div>
             <div>
                     <p   class="light-blue-text"  style="float:left; padding-left:650px;;">*Maximum of 800 words</p>
-                    <div class="animated fadeInDown" style="float:right; padding-right:50px; margin:30px;">
-                        <button type="button" class="btn btn-primary light-blue accent-3 z-depth-1" id="btnPrev_Literature">Previous</button>
-                        <button type="button" class="btn btn-primary light-blue accent-3 z-depth-1">Save as Draft</button>
-                        <button type="button" class="btn btn-primary light-blue accent-3 z-depth-1"id="btnNext_Literature">Next</button>
-                    </div>
+                   
 
             </div>
            
-            </form>
+
     </div>
     
   
     <div id="formMethodology">
 
-        <form>
             <!-- Grid row -->
             
             <div class="form-group row" style="padding-top:50px; width:100%; padding-left: 30px; padding-right: 30px;">
                 <label for="inputEmail13" class="col-sm-4 col-form-label"  style="font-weight: bold; text-align: center;">Methodology</label>
             <div class="col-sm-8">
-                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="methodology"></textarea>
-
+                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="methodology"><?php echo isset($_POST['methodology']) ? $_POST['methodology'] : ''; ?></textarea>
+                <span class="error"><?php echo $error['methodology'];?></span><br/>
             </div>
                 
             </div>
             <div>
                     <p   class="light-blue-text"  style="float:left; padding-left:650px;;">*Maximum of 800 words</p>
-                    <div class="animated fadeInDown" style="float:right; padding-right:50px; margin:30px;">
-                        <button type="button" class="btn btn-primary light-blue accent-3 z-depth-1" id="btnPrev_Methodology">Previous</button>
-                        <button type="button" class="btn btn-primary light-blue accent-3 z-depth-1">Save as Draft</button>
-                        <button type="button" class="btn btn-primary light-blue accent-3 z-depth-1" id="btnNext_Methodology">Next</button>
-                    </div>
+                    
 
             </div>
-           
-            </form>
+
     </div>
 
     <div id="formAnalysis">
 
-        <form>
+
             <!-- Grid row -->
             
             <div class="form-group row" style="padding-top:50px; width:100%; padding-left: 30px; padding-right: 30px;">
                 <label for="inputEmail13" class="col-sm-4 col-form-label"  style="font-weight: bold; text-align: center;">Analysis</label>
             <div class="col-sm-8">
-                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="analysis"></textarea>
-
+                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="analysis"><?php echo isset($_POST['analysis']) ? $_POST['analysis'] : ''; ?></textarea>
+                <span class="error"><?php echo $error['analysis'];?></span><br/>
             </div>
                 
             </div>
             <div>
                     <p   class="light-blue-text"  style="float:left; padding-left:650px;;">*Maximum of 800 words</p>
-                    <div class="animated fadeInDown" style="float:right; padding-right:50px; margin:30px;">
-                        <button type="button" class="btn btn-primary light-blue accent-3 z-depth-1"id="btnPrev_Analysis">Previous</button>
-                        <button type="button" class="btn btn-primary light-blue accent-3 z-depth-1">Save as Draft</button>
-                        <button type="button" class="btn btn-primary light-blue accent-3 z-depth-1" id="btnNext_Analysis">Next</button>
-                    </div>
+                   
 
             </div>
            
-            </form>
     </div>
 
    
 
     <div id="formConclusion">
 
-        <form>
+
             <!-- Grid row -->
             
             <div class="form-group row" style="padding-top:50px; width:100%; padding-left: 30px; padding-right: 30px;">
                 <label for="inputEmail13" class="col-sm-4 col-form-label"  style="font-weight: bold; text-align: center;">Conclusion</label>
             <div class="col-sm-8">
-                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="conclusion"></textarea>
-
+                <textarea class="form-control z-depth-1" id="exampleFormControlTextarea1" rows="10" name="conclusion"><?php echo isset($_POST['conclusion']) ? $_POST['conclusion'] : ''; ?></textarea>
+                <span class="error"><?php echo $error['conclusion'];?></span><br/>
             </div>
                 
             </div>
             <div>
                     <p   class="light-blue-text"  style="float:left; padding-left:650px;;">*Maximum of 800 words</p>
-                    <div class="animated fadeInDown" style="float:right; padding-right:50px; margin:30px;">
-                        <button type="button" class="btn btn-primary light-blue accent-3 z-depth-1" id="btnPrev_Conclusion">Previous</button>
-                        <button type="button" class="btn btn-primary light-blue accent-3 z-depth-1">Save as Draft</button>
-                        <button type="button" class="btn btn-primary light-blue accent-3 z-depth-1" id="btnNext_Conclusion">Next</button>
+                    <div class="animated fadeInDown" style="float:right; padding-right:50px; margin:30px;">                        
+                        <input type="submit" name="create-project" value="SUBMIT" class="btn btn-primary">
                     </div>
 
             </div>
            
-            </form>
+            
     </div>
     
 </div>
-  
+
+</form>
     <!-- /Start your project here-->
 
     <!-- SCRIPTS -->
@@ -252,66 +255,7 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="MDB Free/js/mdb.min.js"></script>
 
-    <script>
-        $( document ).ready(function() {
-            $("#formAbstract").show();
-            $("#formLiterature").hide();
-            $("#formMethodology").hide();
-            $("#formAnalysis").hide();
-            $("#formConclusion").hide();
-
-
-});
-
-        $("#btnNext_Abstract").click(function(){
-    $("#formAbstract").hide();
-    $("#formLiterature").show();
-    $("#progressLiterature").addClass("active");
-});
-
-     $("#btnNext_Literature").click(function(){
-    $("#formLiterature").hide();
-    $("#formMethodology").show();
-    $("#progressMethodology").addClass("active");
-});
-
-     $("#btnNext_Methodology").click(function(){
-    $("#formMethodology").hide();
-    $("#formAnalysis").show();
-    $("#progressAnalysis").addClass("active");
-});
-
-     $("#btnNext_Analysis").click(function(){
-    $("#formAnalysis").hide();
-    $("#formConclusion").show();
-    $("#progressConclusion").addClass("active");
-});
-
-   $("#btnPrev_Conclusion").click(function(){
-    $("#formConclusion").hide();
-    $("#formAnalysis").show();
-    $("#progressConclusion").removeClass("active");
-});
-
-  $("#btnPrev_Analysis").click(function(){
-    $("#formAnalysis").hide();
-    $("#formMethodology").show();
-    $("#progressAnalysis").removeClass("active");
-});
-
-$("#btnPrev_Methodology").click(function(){
-    $("#formMethodology").hide();
-    $("#formLiterature").show();
-    $("#progressMethodology").removeClass("active");
-});
-
-$("#btnPrev_Literature").click(function(){
-    $("#formLiterature").hide();
-    $("#formAbstract").show();
-    $("#progressLiterature").removeClass("active");
-});
-
-    </script>
+    
 </body>
 
 </html>

@@ -108,9 +108,9 @@ class Project{
     public static function create($arr){
         self::initialize();
 
-        $query = "INSERT INTO " . self::$table_name. " (title, abstract, litReview, methodology, analysis, conclusion, projectId) VALUES (:title, :abstract, :litReview, :methodology, :analysis, :conclusion, :projectId)";  
+        $query = "INSERT INTO " . self::$table_name. " (title, abstract, litReview, methodology, analysis, conclusion, studentId) VALUES (:title, :abstract, :litReview, :methodology, :analysis, :conclusion, :studentId)";  
         $stmt = self::$conn->prepare( $query );
-
+       
         if($stmt->execute($arr)){
             return true;
         }
@@ -121,11 +121,12 @@ class Project{
 
 
     //pass in associative array of all details and id of record to be updated
-    public static function update($arrs){
-        $query = "UPDATE " . $this->table_name. " (title, abstract, litReview, methodology, analysis, conclusion) VALUES (:title, :abstract, :litReview, :methodology, :analysis, :conclusion) WHERE id = :id";  
-        $stmt = $this->conn->prepare( $query );
+    public static function update($score, $id){
+        //$query = "UPDATE " . self::$table_name. "SET score =  21WHERE id = ". $id;
+        $query = "UPDATE " . self::$table_name. " SET score=" . "'".$score."'".  " WHERE id = ". $id;  
+        $stmt = self::$conn->prepare( $query );
 
-        if($stmt->execute($arrs)){
+        if($stmt->execute()){
             return true;
         }
         else{

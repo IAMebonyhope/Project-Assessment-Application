@@ -1,3 +1,19 @@
+<?php
+include_once('php/controllers/AdminController.php');
+session_start();
+if(!isset($_SESSION['user_id'])) header('location: Admin_login.php');
+
+$admCtrl = new AdminController;
+
+$projects = $admCtrl->view_projects();
+
+
+
+ 
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +52,7 @@
                     <div class="dropdown-menu dropdown-menu-right z-depth-5">
                         <a class="dropdown-item" href="#">Profile</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="change-password.html">Change Password</a>
+                        <a class="dropdown-item" href="change-password.php">Change Password</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Logout</a>
                        
@@ -49,13 +65,13 @@
 
     <div id="mySidenav" class="sidenav" style="padding-top:150px;">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="padding-top:80px;">&times;</a>
-            <a class="nav-link" href="AdminDashboard_students.html">Students <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="AdminDashboard_students.php">Students <span class="sr-only">(current)</span></a>
             <hr>
-            <a class="nav-link" href="AdminDashboard_examiners.html">Examiners</a>
+            <a class="nav-link" href="AdminDashboard_examiners.php">Examiners</a>
             <hr>
-            <a class="nav-link" href="gradingScale.html">Grading Scale</a>
+            <a class="nav-link" href="gradingScale.php">Grading Scale</a>
             <hr>
-            <a class="nav-link" href="projects.html">Projects</a>
+            <a class="nav-link" href="projects.php">Projects</a>
           </div>
           
       
@@ -67,11 +83,16 @@
 <div style="padding-top:80px; margin:30px;">
      <!--Table-->
   <table class="table table-bordered" >
-    
+    <?php if((!is_array($projects)) || ($projects == null)){ ?>
+        <thead class="mdb-color darken-3">
+            <tr class="text-white">
+                No project available                
+            </tr>
+        </thead>
+        <?php } else{ ?>
     <!--Table head-->
     <thead class="mdb-color darken-3">
         <tr class="text-white" style="text-align:center;">
-            <th>#</th>
             <th style="width:25%">PROJECT NAME</th>
             <th style="width:25%">SUBMITTED BY</th>
             <th style="width:25%">ASSIGNED TO</th>
@@ -82,33 +103,21 @@
 
     <!--Table body-->
     <tbody class="white font-weight-bold" >
+        <?php if(is_array($projects[1])){foreach($projects as $project){ if($project['status'] === "assigned"){?>
         <tr style="text-align:center;">
-            <th scope="row">1</th>
-            <td>Project 1</td>
-            <td>Seyikemi Sojirin</td>
-            <td><div>
-                <ul>
-                    <li>Dr. Odumuyiwa</li>
-                    <li>Dr. Rufai</li>
-                    <li>Dr. Fashina</li>
-                </ul>
-            </div></td>
+            <td><?php echo ($project['title'])?></td>
+            <td><?php echo ($project['studentMatricNo'])?></td>
+            <td><?php echo ($project['examiners'])?></td>
             <td><div class = "col-md-8 mx-auto" style="margin:auto;"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" >View</button></div></td>
-            </tr>
-            
-            <tr style="text-align:center;">
-                <th scope="row">1</th>
-                <td>Project 1</td>
-                <td>Seyikemi Sojirin</td>
-                <td><div>
-                    <ul>
-                        <li>Dr. Odumuyiwa</li>
-                       
-                    </ul>
-                </div></td>
-                <td><div class = "col-md-8 mx-auto"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" >View</button></div></td>
-                </tr>
-               
+        </tr>
+        <?php } } }else{ if($projects['status'] === "assigned"){ ?>
+        <tr style="text-align:center;">
+            <td><?php echo ($projects['title'])?></td>
+            <td><?php echo ($projects['studentMatricNo'])?></td>
+            <td><?php echo ($projects['examiners'])?></td>
+            <td><div class = "col-md-8 mx-auto" style="margin:auto;"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" >View</button></div></td>
+        </tr>
+         <?php } } }?>
     </tbody>
     <!--Table body-->
 

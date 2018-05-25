@@ -76,7 +76,8 @@ class Grade{
             }
         }
         
-       
+       //echo($query);
+       //die();
         try{
             $stmt = self::$conn->prepare( $query );
             $stmt->execute();
@@ -109,7 +110,7 @@ class Grade{
         $query = "INSERT INTO " . self::$table_name. " (name, abstract, litReview, methodology, analysis, conclusion, adminId) VALUES (:name, :abstract, :litReview, :methodology, :analysis, :conclusion, :adminId)";  
         $stmt = self::$conn->prepare( $query );
 
-        if($stmt->execute($arrs)){
+        if($stmt->execute($arr)){
             return true;
         }
         else{

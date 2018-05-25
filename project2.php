@@ -1,3 +1,46 @@
+<?php
+include_once('php/controllers/ExaminerController.php');
+session_start();
+if(!isset($_SESSION['examiner_id']) || !isset($_SESSION['project_id'])) header('location: tables.php');
+
+$examCtrl = new ExaminerController;
+
+$project = [];
+
+$x = $examCtrl->view_project($_SESSION['examiner_id'], $_SESSION['project_id']);
+
+if(is_array($x)){
+  $project = $x;
+}
+else{
+  header('location: tables.php');
+}
+
+if(isset($_POST['submit'])){
+
+    $user['abstract'] = $_POST['abstract'];
+    $user['methodology'] = $_POST['methodology'];
+    $user['litReview'] = $_POST['litReview'];
+    $user['analysis'] = $_POST['analysis'];
+    $user['conclusion'] = $_POST['conclusion'];
+    $user['projectId'] = $_SESSION['project_id'];
+
+    $result = $examCtrl->grade_project($user);
+
+    if($result === true){
+
+        header('Location: tables.php');
+    }
+    else{
+       header('Location: project2.php');
+    }
+    
+}
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +63,7 @@
 
   <style>
     .bg-dark{
-      background-color: #00b0ff !important;
+      background-color: #020550 !important;
     }
     table a{
       text-decoration: none !important;
@@ -88,104 +131,104 @@
   <div class="content-wrapper">
         <div class="container-fluid">
             <div class="col-md-12">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
                             <div class="form-group">
                               <label  class="col-sm-2 control-label">Project Title</label>
                               <div class="col-sm-8">
-                                <input type="text" class="form-control" id="title" placeholder="" readonly>
+                                <input type="text" class="form-control" id="title" placeholder="" value="<?php echo ($project['title'])?>" readonly>
                               </div>
                             </div>
                             <div class="form-group">
                               <label  class="col-sm-2 control-label">Abstract</label>
                               <div class="col-sm-8">
-                                    <textarea class="form-control" readonly></textarea>
+                                    <textarea class="form-control" readonly><?php echo ($project['abstract'])?></textarea>
                               </div>
                               <div class="col-sm-2">
                                     <p>GRADE</p>
                                     <div class="radio">
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">A<br>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">B<br>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">C<br>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">D<br>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">E<br>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">F
-                                 </div>
+                                        <input type="radio" name="abstract" id="optionsRadios2" value="A">A<br>
+                                        <input type="radio" name="abstract" id="optionsRadios2" value="B">B<br>
+                                        <input type="radio" name="abstract" id="optionsRadios2" value="C">C<br>
+                                        <input type="radio" name="abstract" id="optionsRadios2" value="C">D<br>
+                                        <input type="radio" name="abstract" id="optionsRadios2" value="D">E<br>
+                                        <input type="radio" name="abstract" id="optionsRadios2" value="E">F
+                                    </div>
                              </div>
                             </div>
 
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label">Literature Review</label>
                                 <div class="col-sm-8">
-                                        <textarea class="form-control" readonly></textarea>
+                                        <textarea class="form-control" readonly><?php echo ($project['litReview'])?></textarea>
                                 </div>
                                 <div class="col-sm-2">
                                         <p>GRADE</p>
                                         <div class="radio">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">A<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">B<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">C<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">D<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">E<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">F<br>
-                                            </div>
+                                        <input type="radio" name="litReview" id="optionsRadios2" value="A">A<br>
+                                        <input type="radio" name="litReview" id="optionsRadios2" value="B">B<br>
+                                        <input type="radio" name="litReview" id="optionsRadios2" value="C">C<br>
+                                        <input type="radio" name="litReview" id="optionsRadios2" value="C">D<br>
+                                        <input type="radio" name="litReview" id="optionsRadios2" value="D">E<br>
+                                        <input type="radio" name="litReview" id="optionsRadios2" value="E">F
+                                    </div>
                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label">Methodology</label>
                                 <div class="col-sm-8">
-                                        <textarea class="form-control" readonly></textarea>
+                                        <textarea class="form-control" readonly><?php echo ($project['methodology'])?></textarea>
                                 </div>
                                 <div class="col-sm-2">
                                         <p>GRADE</p>
                                         <div class="radio">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">A<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">B<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">C<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">D<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">E<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">F
-                                            </div>
+                                        <input type="radio" name="methodology" id="optionsRadios2" value="A">A<br>
+                                        <input type="radio" name="methodology" id="optionsRadios2" value="B">B<br>
+                                        <input type="radio" name="methodology" id="optionsRadios2" value="C">C<br>
+                                        <input type="radio" name="methodology" id="optionsRadios2" value="C">D<br>
+                                        <input type="radio" name="methodology" id="optionsRadios2" value="D">E<br>
+                                        <input type="radio" name="methodology" id="optionsRadios2" value="E">F
+                                    </div>
                                </div>
                            </div>
                             
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label">Analysis</label>
                                 <div class="col-sm-8">
-                                        <textarea class="form-control" readonly></textarea>
+                                        <textarea class="form-control" readonly><?php echo ($project['analysis'])?></textarea>
                                 </div>
                                 <div class="col-sm-2">
                                         <p>GRADE</p>
                                         <div class="radio">
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">A<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">B<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">C<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">D<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">E<br>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">F
-                                            </div>
+                                        <input type="radio" name="analysis" id="optionsRadios2" value="A">A<br>
+                                        <input type="radio" name="analysis" id="optionsRadios2" value="B">B<br>
+                                        <input type="radio" name="analysis" id="optionsRadios2" value="C">C<br>
+                                        <input type="radio" name="analysis" id="optionsRadios2" value="C">D<br>
+                                        <input type="radio" name="analysis" id="optionsRadios2" value="D">E<br>
+                                        <input type="radio" name="analysis" id="optionsRadios2" value="E">F
+                                    </div>
                                </div>
                             </div>
                             
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label">Conclusion</label>
                                 <div class="col-sm-8">
-                                        <textarea class="form-control" readonly></textarea>
+                                        <textarea class="form-control" readonly><?php echo ($project['conclusion'])?></textarea>
                                 </div>
                                 <div class="col-sm-2">
                                     <p>GRADE</p>
                                     <div class="radio">
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">A<br>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">B<br>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">C<br>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">D<br>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">E<br>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">F
-                                        </div>
+                                        <input type="radio" name="conclusion" id="optionsRadios2" value="A">A<br>
+                                        <input type="radio" name="conclusion" id="optionsRadios2" value="B">B<br>
+                                        <input type="radio" name="conclusion" id="optionsRadios2" value="C">C<br>
+                                        <input type="radio" name="conclusion" id="optionsRadios2" value="C">D<br>
+                                        <input type="radio" name="conclusion" id="optionsRadios2" value="D">E<br>
+                                        <input type="radio" name="conclusion" id="optionsRadios2" value="E">F
+                                    </div>
                                 </div>
                            </div>
 
-                           <input class="btn btn-default" type="submit" value="Submit" style="background-color:#1B98E0;margin-left:70%">
+                           <input class="btn btn-default" type="submit" name="submit" value="submit" style="background-color:#1B98E0;margin-left:70%">
                           </form>
                  </div>
             </div>

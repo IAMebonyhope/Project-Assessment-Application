@@ -5,17 +5,18 @@ require_once('php/objects/Project.php');
 class StudentController{
     
     //drafted projects
-
+    public $loginError = false;
 
     public function login($matricNo, $password){
     
         if(($matricNo == "") || ($password == "")){
             $error['general'] = "matric No and password cannot be empty";
+            $this->loginError = true;
             return $error;
         }
         else{
-            $matricNo = $this->test_input($matricNo);
-            $password = $this->test_input($password);
+            $matricNo = '"'. $this->test_input($matricNo). '"';
+            $password = '"'. $this->test_input($password) . '"';
 
             $student = Student::read([
                     ["matricNo", "=", $matricNo],
@@ -24,9 +25,11 @@ class StudentController{
             
             if((!is_array($student)) || ($student == null)){
                 $error['general'] = "invalid matricNo or password";
+                $this->loginError = true;
                 return $error;
             }
             else{
+                $this->loginError = false;
                 return $student;
             }
         }
@@ -50,36 +53,46 @@ class StudentController{
         if($empty_status == true){
             return $error;
         }
-        else if(count($array['abstract']) > 800){
+        else if(str_word_count($array['abstract']) > 800){
             $error['abstract'] = "abstract must not be more than 800 words";
             return $error;
         }
-        else if(count($array['litReview']) > 800){
+        else if(str_word_count($array['litReview']) > 800){
             $error['litReview'] = "literature review must not be more than 800 words";
             return $error;
         }
-        else if(count($array['methodology']) > 800){
+        else if(str_word_count($array['methodology']) > 800){
             $error['methodology'] = "methodology must not be more than 800 words";
             return $error;
         }
-        else if(count($array['analysis']) > 800){
+        else if(str_word_count($array['analysis']) > 800){
             $error['analysis'] = "analysis must not be more than 800 words";
             return $error;
         }
-        else if(count($array['conclusion']) > 400){
+        else if(str_word_count($array['conclusion']) > 400){
             $error['conclusion'] = "conclusion must not be more than 400 words";
             return $error;
         }
         else{
-            foreach ($array as $key => $value) {
-                $value = $this->test_input($value);
-            }
-
-            if(Project::create($array) == true){
-                return true;
+            $project = Project::read([
+                    ["title", "=", ("'" . $array['title'] . "'")],
+                    ]);
+            
+            if(is_array($project)){
+                $error['general'] = "project with this title already exists";
+                return $error;
             }
             else{
-                return false;
+                foreach ($array as $key => $value) {
+                    $value = $this->test_input($value);
+                }
+
+                if(Project::create($array) == true){
+                    return true;
+                }
+                else{
+                    return false;
+                }
             }
         }
 

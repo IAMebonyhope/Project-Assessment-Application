@@ -94,7 +94,7 @@ if(isset($_POST['create-examiner'])){
             <a class="nav-link" href="gradingScale.php">Grading Scale</a>
             <hr>
             <a class="nav-link" href="projects.php">Projects</a>
-          </div>
+    </div>
           
 </header>
 
@@ -143,7 +143,7 @@ if(isset($_POST['create-examiner'])){
 
                 <div class="md-form form-sm">
                     <i class="fa fa-envelope prefix"></i>
-                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="faculty" value="<?php echo isset($_POST['firstName']) ? $_POST['firstName'] : ''; ?>">
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="faculty" value="<?php echo isset($_POST['faculty']) ? $_POST['faculty'] : ''; ?>">
                     <label for="materialFormNameModalEx1">Faculty</label>
                     <span class="error"><?php echo $error['faculty'];?></span><br/>
                 </div>
@@ -172,13 +172,15 @@ if(isset($_POST['create-examiner'])){
         </div>
         <!--/.Content-->
     </div>
+    
     <!--/Modal: Contact form-->
 </div>
 <div style="padding-top: 80px; margin:30px;"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalContactForm">
     Create Examiner Account
 </button>
+</div> 
 </div>
-    
+     
 
 <div style="padding-top:20px; margin: 30px;">
 
@@ -195,8 +197,6 @@ if(isset($_POST['create-examiner'])){
         <?php } else{ ?>
         <thead class="mdb-color darken-3">
             <tr class="text-white">
-                <th>#</th>
-               
                 <th style="width:50%">NAME</th>
                 <th style="width:50%">ASSIGNED PROJECTS</th>
                 
@@ -208,16 +208,12 @@ if(isset($_POST['create-examiner'])){
         <tbody class="white font-weight-bold" >
         <?php if(is_array($examiners[1])){foreach($examiners as $examiner){ ?>
             <tr >
-                <th scope="row">1</th>
-               
                 <td><div><p style="float:left;"><?php echo ($examiner['lastName'] . " " . $examiner['firstName'] )?></p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Examiner profile</button></div></td>
                 <td><div><p style="float:left;"><?php echo (count($examiner['projects']) )?></p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Assigned Projects</button></div></td>
                
             </tr>
         <?php } }else{?>
-            <tr >
-                <th scope="row">1</th>
-               
+            <tr >              
                 <td><div><p style="float:left;"><?php echo ($examiners['lastName'] . " " . $examiners['firstName'] )?></p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Examiner profile</button></div></td>
                 <td><div><p style="float:left;"><?php echo (count($examiners['projects']) )?></p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Assigned Projects</button></div></td>
                

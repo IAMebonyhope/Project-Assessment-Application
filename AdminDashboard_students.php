@@ -1,3 +1,43 @@
+<?php
+include_once('php/controllers/AdminController.php');
+session_start();
+if(!isset($_SESSION['user_id'])) header('location: Admin_login.php');
+
+$admCtrl = new AdminController;
+
+$students = $admCtrl->view_students();
+
+$error = array();
+$user = array();
+
+if(isset($_POST['create-student'])){
+
+    $user['matricNo'] = $_POST['matricNo'];
+    $user['firstName'] = $_POST['firstName'];
+    $user['lastName'] = $_POST['lastName'];
+    $user['dept'] = $_POST['dept'];
+    $user['faculty'] = $_POST['faculty'];
+    $user['level'] = $_POST['level'];
+    $user['password'] = $_POST['password'];
+    $user['adminId'] = $_SESSION['user_id'];
+
+    $result = $admCtrl->create_student($user);
+    
+    if($result === true){
+        header('Location: AdminDashboard_students.php');
+    }
+    else{
+        $error = $result;
+        
+    }
+    
+}
+
+ 
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,118 +121,116 @@
                 </button>
             </div>
                 <!--Body-->
-                <div class="modal-body">
+            <div class="modal-body">
+            <form class="form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
 
+                <span class="error"><?php echo $error['general'];?></span><br/><br/>
                 <!-- Material input name -->
                 <div class="md-form form-sm">
                     <i class="fa fa-envelope prefix"></i>
-                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="firstName">
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="firstName" value="<?php echo isset($_POST['firstName']) ? $_POST['firstName'] : ''; ?>">
                     <label for="materialFormNameModalEx1">First Name</label>
+                    <span class="error"><?php echo $error['firstName'];?></span><br/>
                 </div>
 
                 <div class="md-form form-sm">
                     <i class="fa fa-envelope prefix"></i>
-                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="lastName">
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="lastName" value="<?php echo isset($_POST['lastName']) ? $_POST['lastName'] : ''; ?>">
                     <label for="materialFormNameModalEx1">Last Name</label>
+                    <span class="error"><?php echo $error['lastName'];?></span><br/>
                 </div>
 
                  <div class="md-form form-sm">
                     <i class="fa fa-envelope prefix"></i>
-                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="matricNo">
-                    <label for="materialFormNameModalEx1">Matriculation No.</label>
-                </div>
-
-                <!-- Material input email -->
-                <div class="md-form form-sm">
-                    <i class="fa fa-lock prefix"></i>
-                    <input type="text" id="materialFormEmailModalEx1" class="form-control form-control-sm" name="email">
-                    <label for="materialFormEmailModalEx1">Email</label>
-                </div>
-
-                <!-- Material input subject -->
-                <div class="md-form form-sm">
-                    <i class="fa fa-tag prefix"></i>
-                    <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="faculty">
-                    <label for="materialFormSubjectModalEx1">Faculty</label>
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="matricNo" value="<?php echo isset($_POST['matricNo']) ? $_POST['matricNo'] : ''; ?>">
+                    <label for="materialFormNameModalEx1">Matric No</label>
+                    <span class="error"><?php echo $error['matricNo'];?></span><br/>
                 </div>
 
                 <div class="md-form form-sm">
-                    <i class="fa fa-tag prefix"></i>
-                    <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="dept">
-                    <label for="materialFormSubjectModalEx1">Department</label>
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="faculty" value="<?php echo isset($_POST['faculty']) ? $_POST['faculty'] : ''; ?>">
+                    <label for="materialFormNameModalEx1">Faculty</label>
+                    <span class="error"><?php echo $error['faculty'];?></span><br/>
                 </div>
 
                 <div class="md-form form-sm">
-                    <i class="fa fa-tag prefix"></i>
-                    <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="level">
-                    <label for="materialFormSubjectModalEx1">Level</label>
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="dept" value="<?php echo isset($_POST['dept']) ? $_POST['dept'] : ''; ?>">
+                    <label for="materialFormNameModalEx1">Department</label>
+                    <span class="error"><?php echo $error['dept'];?></span><br/>
                 </div>
 
                 <div class="md-form form-sm">
-                    <i class="fa fa-tag prefix"></i>
-                    <input type="password" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="password">
-                    <label for="materialFormSubjectModalEx1">Password</label>
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="level" value="<?php echo isset($_POST['level']) ? $_POST['level'] : ''; ?>">
+                    <label for="materialFormNameModalEx1">Level</label>
+                    <span class="error"><?php echo $error['level'];?></span><br/>
+                </div>
+
+                <div class="md-form form-sm">
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="password" id="materialFormNameModalEx1" class="form-control form-control-sm" name="password">
+                    <label for="materialFormNameModalEx1">Password</label>
+                    <span class="error"><?php echo $error['password'];?></span><br/>
                 </div>
 
                 
 
                 <div class="text-center mt-4 mb-2">
-                    <button class="btn btn-primary">Create Account
-                        <i class="fa fa-send ml-2"></i>
-                    </button>
+                    <input type="submit" name="create-student" value="CREATE ACCOUNT" class="btn btn-primary">
                 </div>
-
+            </form>
             </div>
-                
+            
             </div>
             <!--/.Content-->
         </div>
         <!--/Modal: Contact form-->
       </div>
-      <div style="padding-top: 80px; margin:30px;"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalContactForm">
-        Create Student Account
-      </button>
-      </div>
+      
+    <div style="padding-top: 80px; margin:30px;"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalContactForm">
+    Create Student Account
+</button>
+</div>  
+</div>
         
           <div style="padding-top:20px; margin: 30px;">
         <!--Table-->
         <table class="table table-bordered">
           
               <!--Table head-->
+              <?php if((!is_array($students)) || ($students == null)){ ?>
+                <thead class="mdb-color darken-3">
+                    <tr class="text-white">
+                        No student available                
+                    </tr>
+                </thead>
+                <?php } else{ ?>
               <thead class="mdb-color darken-3">
                   <tr class="text-white">
-                      <th>#</th>
                       <th style="width:25%">MATRICULATION NO.</th>
                       <th style="width:25%">NAME</th>
                       <th style="width:25%">PROJECT</th>
-                      <th style="width:25%">PROJECT STATUS</th>
                   </tr>
               </thead>
               <!--Table head-->
           
               <!--Table body-->
               <tbody class="white font-weight-bold" >
+                  <?php if(is_array($students[1])){foreach($students as $student){ ?>
                   <tr >
-                      <th scope="row">1</th>
-                      <td>14805020</td>
-                      <td><div><p style="float:left;">Sojirin Seyikemi</p><button type="button"  data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View student profile</button></div></td>
-                      <td><div><p style="float:left;">2 projects</p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Projects</button></div></td>
-                      <td><div><div style="float:left;"><p class="badge2" data-badge="1" style="float:left;  margin-right:25px; "></p><p class="font-weight-bold" style="float:left; "> Unassigned Project</p></div><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;" data-toggle="modal" data-target="#modalPoll">Assign Project</button></div></td>
+                      <td><?php echo ($student['matricNo'])?></td>
+                      <td><div><p style="float:left;"><?php echo ($student['lastName'] . " " . $student['firstName'] )?></p><button type="button"  data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View student profile</button></div></td>
+                      <td><div><p style="float:left;"><?php echo (count($student['projects']) )?></p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Projects</button></div></td>
                   </tr>
-                  <tr>
-                      <th scope="row">2</th>
-                      <td>140805021</td>
-                      <td><div><p style="float:left;">John Doe</p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View student profile</button></div></td>
-                      <td><div><p style="float:left;">No projects</p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 disabled" style="float:right;">View Projects</button></div</td>
-                      <td><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 disabled light-blue accent-3" style="float:right;">Assign Project</button></td>
+                  <?php } }else{?>
+                    <tr >
+                      <td><?php echo ($students['matricNo'])?></td>
+                      <td><div><p style="float:left;"><?php echo ($students['lastName'] . " " . $students['firstName'] )?></p><button type="button"  data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View student profile</button></div></td>
+                      <td><div><p style="float:left;"><?php echo (count($students['projects']) )?></p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Projects</button></div></td>
                   </tr>
-                  <tr>
-                      <th scope="row">3</th>
-                      <td>140805033</td>
-                      <td><div><p style="float:left;">Adeola Oni</p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View student profile</button></div></td>
-                      <td><div><p style="float:left;">1 project</p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Projects</button></div></td>
-                      <td><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 disabled light-blue accent-3" style="float:right;">Assign Project</button></td>
-                  </tr>
+                    <?php } }?>
               </tbody>
               <!--Table body-->
           

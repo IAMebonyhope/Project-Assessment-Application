@@ -3,6 +3,7 @@ require_once('php/objects/Admin.php');
 require_once('php/objects/Student.php');
 require_once('php/objects/Project.php');
 require_once('php/objects/Examiner.php');
+require_once('php/objects/Grade.php');
 require_once('php/objects/Project_Examiner.php');
 
 class AdminController{
@@ -76,20 +77,34 @@ class AdminController{
             $error['dept'] = "department must contain only letters";
             return $error;
         }
-        elseif(preg_match("/^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/", $newPassword) === 0){
-            $error['newPassword'] = "password must be more than 8 characters, contain an uppercase letter, lowercase letter and a number";
+        elseif(filter_var($array['level'], FILTER_SANITIZE_NUMBER_INT) === ""){
+            $error['level'] = "level must contain only numbers";
+            return $error;
+        }
+        elseif(preg_match("/^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/", $array['password']) === 0){
+            $error['password'] = "password must be more than 8 characters, contain an uppercase letter, lowercase letter and a number";
             return $error;
         }
         else{
-            foreach ($array as $key => $value) {
-                $value = $this->test_input($value);
-            }
-
-            if(Student::create($array) == true){
-                return true;
+            $student = Student::read([
+                    ["matricNo", "=", $array['matricNo']],
+                    ]);
+            
+            if(is_array($student)){
+                $error['general'] = "student with this Matric No already exists";
+                return $error;
             }
             else{
-                return false;
+                foreach ($array as $key => $value) {
+                    $value = $this->test_input($value);
+                }
+
+                if(Student::create($array) == true){
+                    return true;
+                }
+                else{
+                    return false;
+                }
             }
         }
 
@@ -127,15 +142,25 @@ class AdminController{
             return $error;
         }
         else{
-            foreach ($array as $key => $value) {
-                $value = $this->test_input($value);
-            }
+            $examiner = Examiner::read([
+                    ["email", "=", $array['email']],
+                    ]);
             
-            if(Examiner::create($array) == true){
-                return true;
+            if(is_array($examiner)){
+                $error['general'] = "examiner with this email already exists";
+                return $error;
             }
             else{
-                return false;
+                foreach ($array as $key => $value) {
+                    $value = $this->test_input($value);
+                }
+                
+                if(Examiner::create($array) == true){
+                    return true;
+                }
+                else{
+                    return false;
+                }
             }
         }
 
@@ -156,11 +181,11 @@ class AdminController{
         if($empty_status == true){
             return $error;
         }
-        elseif(!filter_var($array['abstract'], FILTER_VALIDATE_INT)){
+        elseif(!is_numeric($array['abstract'])){
             $error['abstract'] = "field must be a number";
             return $error;
         }
-        elseif(!filter_var($array['litReview'], FILTER_VALIDATE_INT)){
+        elseif(!is_numeric($array['litReview'])){
             $error['litReview'] = "field must be a number";
             return $error;
         }
@@ -177,9 +202,18 @@ class AdminController{
             return $error;
         }
         else{
+            $grade = Grade::read([
+                    ["name", "=", ('"' . $array['name'] . '"')],
+                    ]);
+
             $total = $array['abstract'] + $array['litReview'] + $array['methodology'] + $array['analysis'] + $array['conclusion'];
+            
             if($total != 100){
                 $error['general'] = "scores of all section must sum up to 100";
+                return $error;
+            }
+            elseif(is_array($grade)){
+                $error['general'] = "A grade scale with this name already exist";
                 return $error;
             }
             else{
@@ -188,7 +222,7 @@ class AdminController{
                 }
 
                 foreach ($array as $key => $value) {
-                    if(($key != 'name') && ($key != 'adminId')){
+                    if(($key !== "name") && ($key !== "adminId")){
                         $arr = array(
                             'A' => ((5/5)*$value),
                             'B' => ((4/5)*$value),
@@ -197,10 +231,10 @@ class AdminController{
                             'E' => ((1/5)*$value),
                             'F' => ((0/5)*$value),
                         );
-                        $value = implode(',', $arr);
+                        $array[$key] = implode(',', $arr);
                     }
                 }
-
+                
                 if(Grade::create($array) == true){
                     return true;
                 }
@@ -217,21 +251,59 @@ class AdminController{
         $projects = Project::read();
 
         if(is_array($projects)){
-            foreach($projects as $project){
-                $x = Project_Examiner::read([
-                    ["projectId", "=", $project['Id']],
-                    ]);
-                if($x == null){
-                    $project['status'] = "unassigned";
-                }
-                else{
-                    if($project['score'] == null){
+            if(is_array($projects[1])){
+                foreach($projects as $project){              
+                    $student = Student::find($project['studentId']);
+                    $project['studentName'] = $student['lastName'] . " " . $student['firstName'];
+                    $project['studentMatricNo'] = $student['matricNo'];
+
+                    $x = Project_Examiner::read([
+                        ["projectId", "=", $project['id']],
+                        ]);
+                    if(is_array($x)){
                         $project['status'] = "assigned";
+                        if(is_array($x[0])){
+                            $project['examiners'] = " ";
+                            foreach($x as $var){
+                                $examObj = Examiner::find($var['examinerId']);
+                                $project['examiners'] += $examObj["lastName"] . " " . $examObj["firstName"] . "<br>";
+                            }
+
+                        }else{
+                           $examObj = Examiner::find($x['examinerId']);
+                           $project['examiners'] = $examObj["lastName"] . " " . $examObj["firstName"];
+                        }
                     }
                     else{
-                        $project['status'] = "graded";
+                        $project['status'] = "unassigned";
                     }
                 }
+            }
+            else{
+                $student = Student::find($projects['studentId']);
+                    $projects['studentName'] = $student['lastName'] . " " . $student['firstName'];
+                    $projects['studentMatricNo'] = $student['matricNo'];
+
+                    $x = Project_Examiner::read([
+                        ["projectId", "=", $projects['id']],
+                        ]);
+                    if(is_array($x)){
+                        $projects['status'] = "assigned";
+                        if(is_array($x[0])){
+                            $projects['examiners'] = " ";
+                            foreach($x as $var){
+                                $examObj = Examiner::find($var['examinerId']);
+                                $projects['examiners'] += $examObj["lastName"] . " " . $examObj["firstName"] . "<br>";
+                            }
+
+                        }else{
+                           $examObj = Examiner::find($x['examinerId']);
+                           $projects['examiners'] = $examObj["lastName"] . " " . $examObj["firstName"];
+                        }
+                    }
+                    else{
+                        $projects['status'] = "unassigned";
+                    }
             }
             return $projects;
         }
@@ -259,6 +331,25 @@ class AdminController{
         $students = Student::read();
 
         if(is_array($students)){
+            if(is_array($students[1])){
+                foreach($students as $student){              
+                    $projects = Project::read([
+                        ["studentId", "=", $student['id']],
+                        ]);
+                    $student['projects'] = $projects;
+                }
+            }
+            else{
+                $projects = Project::read([
+                        ["studentId", "=", $students['id']],
+                        ]);
+                if(is_array($projects)){
+                    $students['projects'] = $projects;
+                }
+                else{
+                    $students['projects'] = null;
+                }
+            }
             return $students;
         }
         else{
@@ -294,6 +385,33 @@ class AdminController{
         }
         else{
             return "no examiner found";
+        }
+    }
+
+    public function view_grades(){
+        $grades = Grade::read();
+        if(is_array($grades)){
+            if(is_array($grades[1])){
+                foreach($grades as $grade){              
+                    $grade['abstract'] = (explode(',', $grade['abstract']))[0];
+                    $grade['litReview'] = (explode(',', $grade['litReview']))[0];
+                    $grade['methodology'] = (explode(',', $grade['methodology']))[0];
+                    $grade['analysis'] = (explode(',', $grade['analysis']))[0];
+                    $grade['conclusion'] = (explode(',', $grade['conclusion']))[0];
+                }
+            }
+            else{
+                $grades['abstract'] = (explode(',', $grades['abstract']))[0];
+                $grades['litReview'] = (explode(',', $grades['litReview']))[0];
+                $grades['methodology'] = (explode(',', $grades['methodology']))[0];
+                $grades['analysis'] = (explode(',', $grades['analysis']))[0];
+                $grades['conclusion'] = (explode(',', $grades['conclusion']))[0];
+            }
+
+            return $grades;
+        }
+        else{
+            return "no grade found";
         }
     }
 

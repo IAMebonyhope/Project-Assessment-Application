@@ -1,3 +1,42 @@
+<?php
+include_once('php/controllers/AdminController.php');
+session_start();
+if(!isset($_SESSION['user_id'])) header('location: Admin_login.php');
+
+$admCtrl = new AdminController;
+
+$grades = $admCtrl->view_grades();
+
+$error = array();
+$user = array();
+
+if(isset($_POST['create-grade'])){
+
+    $user['name'] = $_POST['name'];
+    $user['abstract'] = $_POST['abstract'];
+    $user['methodology'] = $_POST['methodology'];
+    $user['litReview'] = $_POST['litReview'];
+    $user['analysis'] = $_POST['analysis'];
+    $user['conclusion'] = $_POST['conclusion'];
+    $user['adminId'] = $_SESSION['user_id'];
+
+    $result = $admCtrl->create_grade($user);
+    var_dump($result);
+    die();
+    if($result === true){
+        header('Location: gradingScale.php');
+    }
+    else{
+        $error = $result;
+        
+    }
+    
+}
+
+ 
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,26 +68,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Students <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="AdminDashboard_examiners.html">Examiners</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Create student account</a>
-                </li>
-                <li class="nav-item">
-                        <a class="nav-link" href="#">Create examiner account</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="gradingScale.html">Grading Scale</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Projects</a>
-                </li>
-               
+
             </ul>
             <ul class="navbar-nav nav-flex-icons ">
                 <li class="nav-item">
@@ -69,13 +89,13 @@
 
     <div id="mySidenav" class="sidenav" style="padding-top:150px;">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="padding-top:80px;">&times;</a>
-            <a class="nav-link" href="AdminDashboard_students.html">Students <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="AdminDashboard_students.php">Students <span class="sr-only">(current)</span></a>
             <hr>
-            <a class="nav-link" href="AdminDashboard_examiners.html">Examiners</a>
+            <a class="nav-link" href="AdminDashboard_examiners.php">Examiners</a>
             <hr>
-            <a class="nav-link" href="gradingScale.html">Grading Scale</a>
+            <a class="nav-link" href="gradingScale.php">Grading Scale</a>
             <hr>
-            <a class="nav-link" href="projects.html">Projects</a>
+            <a class="nav-link" href="projects.php">Projects</a>
           </div>
           
 
@@ -88,11 +108,16 @@
             <div>
                  <!--Table-->
               <table class="table table-bordered" >
-                
+                <?php if((!is_array($grades)) || ($grades == null)){ ?>
+                <thead class="mdb-color darken-3">
+                    <tr class="text-white">
+                        No grade scale available                
+                    </tr>
+                </thead>
+                <?php } else{ ?>
                 <!--Table head-->
                 <thead class="mdb-color darken-3">
                     <tr class="text-white" style="text-align:center;">
-                        <th>#</th>
                         <th style="width:25%">SCALE NAME</th>
                         <th style="width:10%">ABSTRACT</th>
                         <th style="width:10%">LITERATURE REVIEW</th>
@@ -106,38 +131,29 @@
             
                 <!--Table body-->
                 <tbody class="white font-weight-bold" id="gradeTable" >
+                    <?php if(is_array($grades[1])){foreach($grades as $grade){ ?>
                     <tr class="text-center">
-                        <th scope="row">1</th>
-                        <td>Scale 1</td>
-                        <td>10</td>
-                        <td>15</td>
-                        <td>15</td>
-                        <td>40</td>
-                        <td>20</td>
+                        <td><?php echo ($grade['name'])?></td>
+                        <td><?php echo ($grade['abstract'])?></td>
+                        <td><?php echo ($grade['litReview'])?></td>
+                        <td><?php echo ($grade['methodology'])?></td>
+                        <td><?php echo ($grade['analysis'])?></td>
+                        <td><?php echo ($grade['conclusion'])?></td>
                         <td><div  class = "mx-auto"><button type="button" class="  mx-autokkk'  btn btn-primary btn-rounded btn-sm mr-5  light-blue accent-3 pull-left" data-toggle="modal" data-target="#modalCreateGradeScaleForm" id="editButton">Edit Scale</button>
                             <button type="button" class="  mx-auto btn btn-red btn-rounded btn-sm  red pull-right" >Delete Scale</button></div></td>
-                        </tr>
-                        
-                        <tr class="text-center">
-                            <th scope="row">2</th>
-                            <td>Scale 2</td>
-                            <td>10</td>
-                            <td>15</td>
-                            <td>15</td>
-                            <td>40</td>
-                            <td>20</td>
-                            <td><div  class = "col-md-11 mx-auto"><button type="button" class=" col-md-4 mx-auto btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 pull-left" >Edit Scale</button><button type="button" class=" col-md-4 mx-auto btn btn-red btn-rounded btn-sm my-0 red pull-right" >Delete Scale</button></div></td>
-                            </tr>
-                            <tr style="text-align:center;">
-                                <th scope="row">3</th>
-                                <td>Scale Custom</td>
-                                <td>10</td>
-                                <td>15</td>
-                                <td>15</td>
-                                <td>40</td>
-                                <td>20</td>
-                                <td><div  class = "col-md-11 mx-auto"><button type="button" class=" col-md-4 mx-auto btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 pull-left" >Edit Scale</button><button type="button" class=" col-md-4 mx-auto btn btn-red btn-rounded btn-sm my-0 red pull-right" >Delete Scale</button></div></td>
-                                </tr>
+                    </tr>
+                    <?php } }else{?>
+                     <tr class="text-center">
+                        <td><?php echo ($grades['name'])?></td>
+                        <td><?php echo ($grades['abstract'])?></td>
+                        <td><?php echo ($grades['litReview'])?></td>
+                        <td><?php echo ($grades['methodology'])?></td>
+                        <td><?php echo ($grades['analysis'])?></td>
+                        <td><?php echo ($grades['conclusion'])?></td>
+                        <td><div  class = "mx-auto"><button type="button" class="  mx-autokkk'  btn btn-primary btn-rounded btn-sm mr-5  light-blue accent-3 pull-left" data-toggle="modal" data-target="#modalCreateGradeScaleForm" id="editButton">Edit Scale</button>
+                            <button type="button" class="  mx-auto btn btn-red btn-rounded btn-sm  red pull-right" >Delete Scale</button></div></td>
+                    </tr>
+                    <?php } }?>
                 </tbody>
                 <!--Table body-->
             
@@ -157,38 +173,59 @@
                             </button>
                         </div>
                         
-                        <div class="modal-body mx-3">
-                                <div class="md-form mb-5">
-                                        <input type="text" id="form3" class="form-control validate">
-                                        <label for="form3">NAME</label>
-                                    </div>
-                            <div class="md-form mb-5">
-                                <input type="text" id="form3" class="form-control validate">
-                                <label for="form3">ABSTRACT</label>
+                        <div class="modal-body">
+                        <form class="form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
+
+                            <span class="error"><?php echo $error['general'];?></span><br/><br/>
+                            <!-- Material input name -->
+                            <div class="md-form form-sm">
+                                <i class="fa fa-envelope prefix"></i>
+                                <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="name" value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>">
+                                <label for="materialFormNameModalEx1">Name</label>
+                                <span class="error"><?php echo $error['name'];?></span><br/>
                             </div>
-            
-                            <div class="md-form mb-5">
-                                <input type="text" id="form2" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="form2">LITERATURE REVIEW</label>
+
+                            <div class="md-form form-sm">
+                                <i class="fa fa-envelope prefix"></i>
+                                <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="abstract" value="<?php echo isset($_POST['abstract']) ? $_POST['abstract'] : ''; ?>">
+                                <label for="materialFormNameModalEx1">Abstract</label>
+                                <span class="error"><?php echo $error['abstract'];?></span><br/>
                             </div>
-            
-                            <div class="md-form mb-5">
-                                <input type="text" id="form2" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="form2">METHODOLOGY</label>
+
+                            <div class="md-form form-sm">
+                                <i class="fa fa-envelope prefix"></i>
+                                <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="litReview" value="<?php echo isset($_POST['litReview']) ? $_POST['litReview'] : ''; ?>">
+                                <label for="materialFormNameModalEx1">Literature Review</label>
+                                <span class="error"><?php echo $error['litReview'];?></span><br/>
                             </div>
-            
-                            <div class="md-form mb-5">
-                                <input type="text" id="form2" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="form2">ANALYSIS</label>
+
+                            <div class="md-form form-sm">
+                                <i class="fa fa-envelope prefix"></i>
+                                <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="methodology" value="<?php echo isset($_POST['methodology']) ? $_POST['methodology'] : ''; ?>">
+                                <label for="materialFormNameModalEx1">Methodology</label>
+                                <span class="error"><?php echo $error['methodology'];?></span><br/>
                             </div>
-                            <div class="md-form mb-5">
-                                <input type="text" id="form2" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="form2">CONCLUSION</label>
+
+                            <div class="md-form form-sm">
+                                <i class="fa fa-envelope prefix"></i>
+                                <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="analysis" value="<?php echo isset($_POST['analysis']) ? $_POST['analysis'] : ''; ?>">
+                                <label for="materialFormNameModalEx1">Analysis</label>
+                                <span class="error"><?php echo $error['analysis'];?></span><br/>
                             </div>
-            
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
-                            <button class="btn btn-indigo">Create Scale <i class="fa fa-paper-plane-o ml-1"></i></button>
+
+                            <div class="md-form form-sm">
+                                <i class="fa fa-envelope prefix"></i>
+                                <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="conclusion" value="<?php echo isset($_POST['conclusion']) ? $_POST['conclusion'] : ''; ?>">
+                                <label for="materialFormNameModalEx1">Conclusion</label>
+                                <span class="error"><?php echo $error['conclusion'];?></span><br/>
+                            </div>
+
+                            
+
+                            <div class="text-center mt-4 mb-2">
+                                <input type="submit" name="create-grade" value="CREATE SCALE" class="btn btn-primary">
+                            </div>
+                        </form>
                         </div>
                     </div>
                 </div>

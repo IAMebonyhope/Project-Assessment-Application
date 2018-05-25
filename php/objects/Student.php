@@ -136,7 +136,7 @@ class Student{
         $query = "INSERT INTO " . self::$table_name. " (matricNo, firstName, lastName, dept, level, faculty, adminId, password) VALUES (:matricNo, :firstName, :lastName, :dept, :level, :faculty, :adminId, :password)";  
         $stmt = self::$conn->prepare( $query );
 
-        if($stmt->execute($arrs)){
+        if($stmt->execute($arr)){
             return true;
         }
         else{

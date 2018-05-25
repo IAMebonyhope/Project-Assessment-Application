@@ -1,3 +1,34 @@
+<?php
+include_once('php/controllers/ExaminerController.php');
+session_start();
+if(!isset($_SESSION['examiner_id'])) header('location: Examiner_login.php');
+
+$examCtrl = new ExaminerController;
+
+$projects = $examCtrl->view_projects($_SESSION['examiner_id']);
+
+if(isset($_POST['show'])){
+
+    $_SESSION['project_id'] = $_POST['projectId'];
+
+    header('Location: gradedproject.php');
+    
+}
+
+if(isset($_POST['grade'])){
+
+    $_SESSION['project_id'] = $_POST['projectId'];
+
+    header('Location: project2.php');
+    
+}
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,14 +67,14 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="profile.html">
+          <a class="nav-link" href="profile.phpphp">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Profile</span>
           </a>
         </li>
         
         <li class="nav-item" class="active" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="tables.html">
+          <a class="nav-link" href="tables.php">
             <i class="fa fa-fw fa-table"></i>
             <span class="nav-link-text">Assigned Projects</span>
           </a>
@@ -56,10 +87,10 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseExamplePages">
             <li>
-              <a href="change-password.html"> Change Password</a>
+              <a href="change-password.php"> Change Password</a>
             </li>
             <li>
-              <a href="login.html">Log out</a>
+              <a href="login.php">Log out</a>
             </li>
           </ul>
         </li>
@@ -80,38 +111,36 @@
   </nav>
   <div class="content-wrapper">
     <div class="container-fluid">
-      
+      <?php if((!is_array($projects)) || ($projects == null)){ ?>
+      <p>No project assigned yet</p>
+        <?php } else{ ?>
       <div class="card mb-3">
         <div class="card-header">
           <i class="fa fa-table"></i> Graded Projects</div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              
+               
               <thead>
                 <tr>
                   <th>Project Title</th>
+                  <th></th>
                 </tr>
               </thead>
   
               <tbody>
-                  <td> <a href="gradedproject.php">MEDICAL TEST RESULT INFORMATION SYSTEM</a></td>
-                </tr>
+                <?php foreach($projects as $project){ if($project['graded'] === true){ ?>
                 <tr>
-                  <td> <a href="gradedproject.html">COURSE REGISTRATION AND RESULT PROCESSING SYSTEM </a></td>
+                  <td><?php echo ($project['title'])?></td>
+                  <td>
+                  <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
+                    <input type="hidden" name="projectId" value="<?php echo ($project['id'])?>">
+                    <input type="submit" name="show" value="VIEW">
+                  </form>
+                </td>
                 </tr>
-                <tr>
-                  <td><a href="gradedproject.html"> COMPUTERIZED POINT OF SALES SYSTEM </a></td>
-                </tr>
-                <tr>
-                  <td><a href="gradedproject.html"> ELECTRONIC VOTERS REGISTRATION SYSTEM </a></td> 
-                </tr>
-                <tr>
-                  <td> <a href="gradedproject.html">GSM BASED REMOTE SWITCHING SYSTEM </a></td>
-                </tr>
-                <tr>
-                  <td><a href="gradedproject.html"> ELECTRONIC COURSE FORM REGISTRATION </a></td>
-                </tr>
-                
+                 <?php } }?>
               </tbody>
             </table>
           </div>
@@ -127,23 +156,23 @@
                 <thead>
                   <tr>
                     <th>Project Title</th>
+                    <th></th>
                   </tr>
                 </thead>
     
                 <tbody>
-                      <tr>
-                        <td> <a href="project2.html">COMPUTERISED PHARMACY MANAGEMENT SYSTEM</a> </td>
-                      </tr>
-                      <tr>
-                        <td> <a href="project2.html">COMPUTERIZED FARM MANAGEMENT INFORMATION SYSTEM</a></td>
-                      </tr>
-                      <tr>
-                        <td> <a href="project2.html">VIRTUAL E-LEARNING SYSTEM </a></td>
-                      </tr>
-                      <tr>
-                        <td><a href="project2.html">STUDENT INFORMATION MANAGEMENT SYSTEM</a></td>
-                      <tr>
-                </tbody>
+                <?php foreach($projects as $project){ if($project['graded'] === false){ ?>
+                <tr>
+                  <td> <?php echo ($project['title'])?></td>
+                  <td>
+                  <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
+                    <input type="hidden" name="projectId" value="<?php echo ($project['id'])?>">
+                    <input type="submit" name="grade" value="GRADE">
+                  </form>
+                </td>
+                </tr>
+                 <?php } } }?>
+              </tbody>
               </table>
             </div>
           </div>
