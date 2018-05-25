@@ -180,7 +180,37 @@ if(isset($_POST['create-examiner'])){
 </button>
 </div> 
 </div>
-     
+
+ <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                         
+                          <h4 style="margin:auto; float:left;" class="modal-title" id="myModalLabel">Examiner Profile</h4>
+                          </div>
+                      <div class="modal-body">
+                          <center>
+                          <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"  width="140" height="140" border="0" class="img-circle"></a>
+                          <h4  class="media-heading" style="padding-top:40px;">Dr. Babatunde Sawyerr</h4>
+                          <p>Computer Science</p>
+                          
+                         
+                          </center>
+                          <hr>
+                          <center>
+                          
+                          <br>
+                          </center>
+                      </div>
+                      <div class="modal-footer">
+                          <center>
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Done</button>
+                          </center>
+                      </div>
+                  </div>
+              </div>
+          </div>
+</div>
 
 <div style="padding-top:20px; margin: 30px;">
 
