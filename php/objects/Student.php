@@ -93,32 +93,37 @@ class Student{
                 $query .= " " . $x;
             }
 
-            if(count(arrs) > 1){
+            if(count($arrs) > 1){
                 for($i = 1; $i < count($arrs); $i++){
+                    $query .= "  AND";
                     foreach($arrs[$i] as $x){
                         $query .= " " . $x;
-                    }
-
-                    $query .= "  AND";
+                    }    
                 }
             }
         }
-
-        $stmt = self::$conn->prepare( $query );
-        $stmt->execute();
-        $students = $stmt->fetchAll();
         
-        if(($students != null) && (is_array($students))){
+       
+        try{
+            $stmt = self::$conn->prepare( $query );
+            $stmt->execute();
+            $students = $stmt->fetchAll();
             
-            if($students[1] == null){
-                return $students[0];
+            if(($students != null) && (is_array($students))){
+                
+                if($students[1] == null){
+                    return $students[0];
+                }
+                else{
+                    return $students;
+                }
             }
             else{
-                return $students;
+                return "record not found";
             }
         }
-        else{
-            return "record not found";
+        catch(PDOEception $e){
+			//echo $e->getMessage();
         }
     }
 

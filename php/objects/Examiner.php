@@ -67,32 +67,37 @@ class Examiner{
                 $query .= " " . $x;
             }
 
-            if(count(arrs) > 1){
+            if(count($arrs) > 1){
                 for($i = 1; $i < count($arrs); $i++){
+                    $query .= "  AND";
                     foreach($arrs[$i] as $x){
                         $query .= " " . $x;
-                    }
-
-                    $query .= "  AND";
+                    }    
                 }
             }
         }
-
-        $stmt = self::$conn->prepare( $query );
-        $stmt->execute();
-        $examiners = $stmt->fetchAll();
         
-        if(($examiners != null) && (is_array($examiners))){
+       
+        try{
+            $stmt = self::$conn->prepare( $query );
+            $stmt->execute();
+            $examiners = $stmt->fetchAll();
             
-            if($examiners[1] == null){
-                return $examiners[0];
+            if(($examiners != null) && (is_array($examiners))){
+                
+                if($examiners[1] == null){
+                    return $examiners[0];
+                }
+                else{
+                    return $examiners;
+                }
             }
             else{
-                return $examiners;
+                return "record not found";
             }
         }
-        else{
-            return "record not found";
+        catch(PDOEception $e){
+			//echo $e->getMessage();
         }
     }
 
@@ -102,10 +107,20 @@ class Examiner{
     public static function create($arr){
         self::initialize();
 
-        $query = "INSERT INTO " . self::$table_name. " (examinerId, firstName, lastName, dept, faculty, password, adminId) VALUES (:matricNo, :firstName, :lastName, :dept, :faculty, :adminId, :password)";  
-        $stmt = self::$conn->prepare( $query );
+        $query = "INSERT INTO " . self::$table_name. " (email, firstName, lastName, dept, faculty, password, adminId) VALUES (:email, :firstName, :lastName, :dept, :faculty, :password, :adminId)";  
+        $stmt = self::$conn->prepare($query);
 
-        if($stmt->execute($arrs)){
+        /*$stmt->bindParam(':email', $arr['email']);
+        $stmt->bindParam(':firstName', $arr['firstName']);
+        $stmt->bindParam(':lastName', $arr['lastName']);
+        $stmt->bindParam(':dept', $arr['dept']);
+        $stmt->bindParam(':faculty', $arr['faculty']);
+        $stmt->bindParam(':password', $arr['password']);
+        $stmt->bindParam(':adminId', $arr['adminId']);*/
+
+        $result = $stmt->execute($arr);
+    
+        if($result != null){
             return true;
         }
         else{

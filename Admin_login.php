@@ -14,7 +14,8 @@ if(isset($_POST['login'])){
     $result = $admCtrl->login($email, $password);
 
     if($admCtrl->loginError == false){
-        var_dump($result);
+        $_SESSION['user_id'] = $result['id'];
+        header('Location: AdminDashboard_examiners.php');
     }
     else{
         $error = $result;

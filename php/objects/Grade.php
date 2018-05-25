@@ -66,32 +66,37 @@ class Grade{
                 $query .= " " . $x;
             }
 
-            if(count(arrs) > 1){
+            if(count($arrs) > 1){
                 for($i = 1; $i < count($arrs); $i++){
+                    $query .= "  AND";
                     foreach($arrs[$i] as $x){
                         $query .= " " . $x;
-                    }
-
-                    $query .= "  AND";
+                    }    
                 }
             }
         }
-
-        $stmt = self::$conn->prepare( $query );
-        $stmt->execute();
-        $grades = $stmt->fetchAll();
         
-        if(($grades != null) && (is_array($grades))){
+       
+        try{
+            $stmt = self::$conn->prepare( $query );
+            $stmt->execute();
+            $grades = $stmt->fetchAll();
             
-            if($grades[1] == null){
-                return $grades[0];
+            if(($grades != null) && (is_array($grades))){
+                
+                if($grades[1] == null){
+                    return $grades[0];
+                }
+                else{
+                    return $grades;
+                }
             }
             else{
-                return $grades;
+                return "record not found";
             }
         }
-        else{
-            return "record not found";
+        catch(PDOEception $e){
+			//echo $e->getMessage();
         }
     }
 

@@ -2,6 +2,8 @@
 require_once('php/objects/Admin.php');
 require_once('php/objects/Student.php');
 require_once('php/objects/Project.php');
+require_once('php/objects/Examiner.php');
+require_once('php/objects/Project_Examiner.php');
 
 class AdminController{
     //login//
@@ -13,6 +15,7 @@ class AdminController{
     //view projects//
     //assign project to one or more examiners
     //change password//
+
     public $loginError = false;
 
 
@@ -43,7 +46,6 @@ class AdminController{
             }
         }
         
-        //var_dump($student['matricNo']);
     }
 
 
@@ -95,7 +97,7 @@ class AdminController{
 
     public function create_examiner($array){
         
-        $error = array();
+        $error;
         $empty_status = false;
 
         foreach ($array as $key => $value) {
@@ -120,15 +122,15 @@ class AdminController{
             $error['dept'] = "department must contain only letters";
             return $error;
         }
-        elseif(preg_match("/^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/", $newPassword) === 0){
-            $error['newPassword'] = "password must be more than 8 characters, contain an uppercase letter, lowercase letter and a number";
+        elseif(preg_match("/^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/", $array['password']) === 0){
+            $error['password'] = "password must be more than 8 characters, contain an uppercase letter, lowercase letter and a number";
             return $error;
         }
         else{
             foreach ($array as $key => $value) {
                 $value = $this->test_input($value);
             }
-
+            
             if(Examiner::create($array) == true){
                 return true;
             }
@@ -269,7 +271,25 @@ class AdminController{
         $examiners = Examiner::read();
 
         if(is_array($examiners)){
-
+            if(is_array($examiners[1])){
+                foreach($examiners as $examiner){              
+                    $projects = Project_Examiner::read([
+                        ["examinerId", "=", $examiner['id']],
+                        ]);
+                    $examiner['projects'] = $projects;
+                }
+            }
+            else{
+                $projects = Project_Examiner::read([
+                        ["examinerId", "=", $examiners['id']],
+                        ]);
+                if(is_array($projects)){
+                    $examiners['projects'] = $projects;
+                }
+                else{
+                    $examiners['projects'] = null;
+                }
+            }
             return $examiners;
         }
         else{
@@ -293,7 +313,7 @@ class AdminController{
                 $error['general'] = "admin not found";
                 return $error;
             }
-            elseif($this->validate_password($oldPassword, $admin['password']) == false){
+            elseif($oldPassword !== $admin['password']){
                 $error['oldPassword'] = "incorrect password";
                 return $error;
             }

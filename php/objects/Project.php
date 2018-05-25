@@ -68,32 +68,37 @@ class Project{
                 $query .= " " . $x;
             }
 
-            if(count(arrs) > 1){
+            if(count($arrs) > 1){
                 for($i = 1; $i < count($arrs); $i++){
+                    $query .= "  AND";
                     foreach($arrs[$i] as $x){
                         $query .= " " . $x;
-                    }
-
-                    $query .= "  AND";
+                    }    
                 }
             }
         }
-
-        $stmt = self::$conn->prepare( $query );
-        $stmt->execute();
-        $projects = $stmt->fetchAll();
         
-        if(($projects != null) && (is_array($projects))){
+       
+        try{
+            $stmt = self::$conn->prepare( $query );
+            $stmt->execute();
+            $projects = $stmt->fetchAll();
             
-            if($projects[1] == null){
-                return $projects[0];
+            if(($projects != null) && (is_array($projects))){
+                
+                if($projects[1] == null){
+                    return $projects[0];
+                }
+                else{
+                    return $projects;
+                }
             }
             else{
-                return $projects;
+                return "record not found";
             }
         }
-        else{
-            return "record not found";
+        catch(PDOEception $e){
+			//echo $e->getMessage();
         }
     }
 

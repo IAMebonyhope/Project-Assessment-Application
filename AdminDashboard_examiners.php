@@ -1,3 +1,42 @@
+<?php
+include_once('php/controllers/AdminController.php');
+session_start();
+if(!isset($_SESSION['user_id'])) header('location: Admin_login.php');
+
+$admCtrl = new AdminController;
+
+$examiners = $admCtrl->view_examiners();
+
+$error = array();
+$user = array();
+
+if(isset($_POST['create-examiner'])){
+
+    $user['email'] = $_POST['email'];
+    $user['firstName'] = $_POST['firstName'];
+    $user['lastName'] = $_POST['lastName'];
+    $user['dept'] = $_POST['dept'];
+    $user['faculty'] = $_POST['faculty'];
+    $user['password'] = $_POST['password'];
+    $user['adminId'] = $_SESSION['user_id'];
+
+    $result = $admCtrl->create_examiner($user);
+    
+    if($result === true){
+        header('Location: AdminDashboard_examiners.php');
+    }
+    else{
+        $error = $result;
+        
+    }
+    
+}
+
+ 
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,66 +116,58 @@
             </div>
             <!--Body-->
             <div class="modal-body">
+            <form class="form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
 
+                <span class="error"><?php echo $error['general'];?></span><br/><br/>
                 <!-- Material input name -->
                 <div class="md-form form-sm">
                     <i class="fa fa-envelope prefix"></i>
-                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="firstName">
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="firstName" value="<?php echo isset($_POST['firstName']) ? $_POST['firstName'] : ''; ?>">
                     <label for="materialFormNameModalEx1">First Name</label>
+                    <span class="error"><?php echo $error['firstName'];?></span><br/>
                 </div>
 
                 <div class="md-form form-sm">
                     <i class="fa fa-envelope prefix"></i>
-                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="lastName">
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="lastName" value="<?php echo isset($_POST['lastName']) ? $_POST['lastName'] : ''; ?>">
                     <label for="materialFormNameModalEx1">Last Name</label>
+                    <span class="error"><?php echo $error['lastName'];?></span><br/>
                 </div>
 
                  <div class="md-form form-sm">
                     <i class="fa fa-envelope prefix"></i>
-                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="examinerId">
-                    <label for="materialFormNameModalEx1">Examiner Id</label>
-                </div>
-
-                <!-- Material input email -->
-                <div class="md-form form-sm">
-                    <i class="fa fa-lock prefix"></i>
-                    <input type="text" id="materialFormEmailModalEx1" class="form-control form-control-sm" name="email">
-                    <label for="materialFormEmailModalEx1">Email</label>
-                </div>
-
-                <!-- Material input subject -->
-                <div class="md-form form-sm">
-                    <i class="fa fa-tag prefix"></i>
-                    <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="faculty">
-                    <label for="materialFormSubjectModalEx1">Faculty</label>
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
+                    <label for="materialFormNameModalEx1">Email</label>
+                    <span class="error"><?php echo $error['email'];?></span><br/>
                 </div>
 
                 <div class="md-form form-sm">
-                    <i class="fa fa-tag prefix"></i>
-                    <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="dept">
-                    <label for="materialFormSubjectModalEx1">Department</label>
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="faculty" value="<?php echo isset($_POST['firstName']) ? $_POST['firstName'] : ''; ?>">
+                    <label for="materialFormNameModalEx1">Faculty</label>
+                    <span class="error"><?php echo $error['faculty'];?></span><br/>
                 </div>
 
                 <div class="md-form form-sm">
-                    <i class="fa fa-tag prefix"></i>
-                    <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="level">
-                    <label for="materialFormSubjectModalEx1">Level</label>
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" name="dept" value="<?php echo isset($_POST['dept']) ? $_POST['dept'] : ''; ?>">
+                    <label for="materialFormNameModalEx1">Department</label>
+                    <span class="error"><?php echo $error['dept'];?></span><br/>
                 </div>
 
                 <div class="md-form form-sm">
-                    <i class="fa fa-tag prefix"></i>
-                    <input type="password" id="materialFormSubjectModalEx1" class="form-control form-control-sm" name="password">
-                    <label for="materialFormSubjectModalEx1">Password</label>
+                    <i class="fa fa-envelope prefix"></i>
+                    <input type="password" id="materialFormNameModalEx1" class="form-control form-control-sm" name="password">
+                    <label for="materialFormNameModalEx1">Password</label>
+                    <span class="error"><?php echo $error['password'];?></span><br/>
                 </div>
 
                 
 
                 <div class="text-center mt-4 mb-2">
-                    <button class="btn btn-primary">Create Account
-                        <i class="fa fa-send ml-2"></i>
-                    </button>
+                    <input type="submit" name="create-examiner" value="CREATE ACCOUNT" class="btn btn-primary">
                 </div>
-
+            </form>
             </div>
         </div>
         <!--/.Content-->
@@ -155,6 +186,13 @@
   <table class="table table-bordered">
     
         <!--Table head-->
+        <?php if((!is_array($examiners)) || ($examiners == null)){ ?>
+        <thead class="mdb-color darken-3">
+            <tr class="text-white">
+                No examiner available                
+            </tr>
+        </thead>
+        <?php } else{ ?>
         <thead class="mdb-color darken-3">
             <tr class="text-white">
                 <th>#</th>
@@ -168,27 +206,23 @@
     
         <!--Table body-->
         <tbody class="white font-weight-bold" >
+        <?php if(is_array($examiners[1])){foreach($examiners as $examiner){ ?>
             <tr >
                 <th scope="row">1</th>
                
-                <td><div><p style="float:left;">Dr. Babatunde Sawyerr</p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Examiner profile</button></div></td>
-                <td><div><p style="float:left;">3 projects</p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Assigned Projects</button></div></td>
+                <td><div><p style="float:left;"><?php echo ($examiner['lastName'] . " " . $examiner['firstName'] )?></p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Examiner profile</button></div></td>
+                <td><div><p style="float:left;"><?php echo (count($examiner['projects']) )?></p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Assigned Projects</button></div></td>
                
             </tr>
-            <tr>
-                <th scope="row">2</th>
+        <?php } }else{?>
+            <tr >
+                <th scope="row">1</th>
                
-                <td><div><p style="float:left;">John Doe</p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View examiner profile</button></div></td>
-                <td><div><p style="float:left;">No projects</p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 disabled" style="float:right;">View Assigned Projects</button></div></td>
-            </tr>
-            
-            <tr>
-                <th scope="row">3</th>
-               
-                <td><div><p style="float:left;">Adeola Oni</p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View examiner profile</button></div></td>
-                <td><div><p style="float:left;">1 project</p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Assigned Projects</button></div></td>
+                <td><div><p style="float:left;"><?php echo ($examiners['lastName'] . " " . $examiners['firstName'] )?></p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Examiner profile</button></div></td>
+                <td><div><p style="float:left;"><?php echo (count($examiners['projects']) )?></p><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" style="float:right;">View Assigned Projects</button></div></td>
                
             </tr>
+        <?php } }?>
         </tbody>
         <!--Table body-->
     

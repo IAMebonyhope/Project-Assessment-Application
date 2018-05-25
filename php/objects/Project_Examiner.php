@@ -68,32 +68,37 @@ class Project_Examiner{
                 $query .= " " . $x;
             }
 
-            if(count(arrs) > 1){
+            if(count($arrs) > 1){
                 for($i = 1; $i < count($arrs); $i++){
+                    $query .= "  AND";
                     foreach($arrs[$i] as $x){
                         $query .= " " . $x;
-                    }
-
-                    $query .= "  AND";
+                    }    
                 }
             }
         }
-
-        $stmt = self::$conn->prepare( $query );
-        $stmt->execute();
-        $projects = $stmt->fetchAll();
         
-        if(($projects != null) && (is_array($projects))){
+       
+        try{
+            $stmt = self::$conn->prepare( $query );
+            $stmt->execute();
+            $examiners = $stmt->fetchAll();
             
-            if($projects[1] == null){
-                return $projects[0];
+            if(($examiners != null) && (is_array($examiners))){
+                
+                if($examiners[1] == null){
+                    return $examiners[0];
+                }
+                else{
+                    return $examiners;
+                }
             }
             else{
-                return $projects;
+                return "record not found";
             }
         }
-        else{
-            return "record not found";
+        catch(PDOEception $e){
+			//echo $e->getMessage();
         }
     }
 
