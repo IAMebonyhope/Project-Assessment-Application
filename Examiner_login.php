@@ -17,7 +17,7 @@
         <br>
         <input type="password" name="password" placeholder="PASSWORD" class="input-control">
         <br>
-        <input type="submit" value="Login" class="btn-control">
+        <input type="submit" value="Login" class="btn-control"> <a href="profile.php"></a>
     </form>
 </body>
 
