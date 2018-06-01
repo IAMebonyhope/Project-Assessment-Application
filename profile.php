@@ -52,14 +52,14 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="profile.html"> 
+          <a class="nav-link" href="profile.php"> 
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Profile</span>
           </a>
         </li>
         
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="tables.html">
+          <a class="nav-link" href="tables.php">
             <i class="fa fa-fw fa-table"></i>
             <span class="nav-link-text">Assigned Projects</span>
           </a>
@@ -72,10 +72,10 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseExamplePages">
             <li>
-              <a href="change-password.html"> Change Password</a>
+              <a href="change-password.php"> Change Password</a>
             </li>
             <li>
-              <a href="login.html">Log out</a>
+              <a href="Examiner_login.php">Log out</a>
             </li>
           </ul>
         </li>
@@ -143,7 +143,7 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href="Examiner_login.php">Logout</a>
           </div>
         </div>
       </div>

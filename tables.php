@@ -67,7 +67,7 @@ if(isset($_POST['grade'])){
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="profile.phpphp">
+          <a class="nav-link" href="profile.php">
             <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Profile</span>
           </a>
@@ -90,7 +90,7 @@ if(isset($_POST['grade'])){
               <a href="change-password.php"> Change Password</a>
             </li>
             <li>
-              <a href="login.php">Log out</a>
+              <a href="Examiner_login.php">Log out</a>
             </li>
           </ul>
         </li>
@@ -202,7 +202,7 @@ if(isset($_POST['grade'])){
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href="Examiner_login.php">Logout</a>
           </div>
         </div>
       </div>

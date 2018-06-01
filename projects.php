@@ -7,6 +7,8 @@ $admCtrl = new AdminController;
 
 $projects = $admCtrl->view_projects();
 
+$examiners = $admCtrl->view_examiners();
+$grades = $admCtrl->view_grades();
 
 
  
@@ -106,14 +108,14 @@ $projects = $admCtrl->view_projects();
 
     <!--Table body-->
     <tbody class="white font-weight-bold" >
-        <?php if(is_array($projects[1])){foreach($projects as $project){ if($project['status'] === "assigned"){?>
+        <?php if(is_array($projects[1])){foreach($projects as $project){ if($project['score'] !== null){?>
         <tr style="text-align:center;">
             <td><?php echo ($project['title'])?></td>
             <td><?php echo ($project['studentMatricNo'])?></td>
             <td><?php echo ($project['examiners'])?></td>
             <td><div class = "col-md-8 mx-auto" style="margin:auto;"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" >View</button></div></td>
         </tr>
-        <?php } } }else{ if($projects['status'] === "assigned"){ ?>
+        <?php } } }else{ if($projects['score'] !== null){ ?>
         <tr style="text-align:center;">
             <td><?php echo ($projects['title'])?></td>
             <td><?php echo ($projects['studentMatricNo'])?></td>
@@ -138,36 +140,79 @@ $projects = $admCtrl->view_projects();
     <!--Table head-->
     <thead class="mdb-color darken-3">
         <tr class="text-white" style="text-align:center;">
-            <th>#</th>
             <th style="width:25%">PROJECT NAME</th>
             <th style="width:25%">SUBMITTED BY</th>
             <th style="width:25%">ASSIGN PROJECT</th>
-            <th style="width:25%"></th>
         </tr>
     </thead>
     <!--Table head-->
 
     <!--Table body-->
-    <tbody class="white font-weight-bold" >
+   <tbody class="white font-weight-bold" >
+        <?php if(is_array($projects[1])){foreach($projects as $project){ if($project['score'] === null){?>
         <tr style="text-align:center;">
-            <th scope="row">1</th>
-            <td>Project 1</td>
-            <td>Seyikemi Sojirin</td>
-            <td><div>
-            <button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 col-md-6 mx-auto" data-toggle="modal" data-target="#modalPoll">Assign Project</button>
-            </div></td>
-            <td><div class = "col-md-12 mx-auto" style="margin:auto;"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 col-md-6 mx-auto" >View Project Details</button></div></td>
-            </tr>
-            
-            <tr style="text-align:center;">
-                <th scope="row">1</th>
-                <td>Project 1</td>
-                <td>Seyikemi Sojirin</td>
-                <td><div>
-                <button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 col-md-6 mx-auto" data-toggle="modal" data-target="#modalPoll">Assign Project</button>
-                </div></td>
-                <td><div class = "col-md-8 mx-auto"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3" >View Project Details</button></div></td>
-                </tr>
+            <td><?php echo ($project['title'])?></td>
+            <td><?php echo ($project['studentMatricNo'])?></td>
+            <td><div class = "col-md-8 mx-auto" style="margin:auto;"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 col-md-6 mx-auto" data-toggle="modal" data-target="#modalPoll">Assign Project</button></div></td>
+        </tr>
+        <div class="modal fade" id="modalPoll" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-backdrop="false">
+        <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
+          <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header light-blue accent-3">
+              <p class="heading lead">Assign Project
+              </p>
+      
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="white-text">×</span>
+              </button>
+            </div>
+      
+            <!--Body-->
+            <div class="modal-body">
+              <div class="text-center">
+                <i class="fa fa-file-text-o fa-4x mb-3 animated rotateIn"></i>
+                <form>
+                <p>
+                  <strong>Project Title</strong>
+                </p>
+                
+                  <strong></strong><?php echo ($project['title'])?></strong>
+                </p>
+              </div>
+      
+              <hr>
+              <div class="wrapper">
+                      <span class="title">Select Examiners</span>
+                      
+                      
+                           
+                    </div>
+                  <hr>
+              <!-- Radio -->
+              <p class="text-center">
+                <strong>Choose Grading Scale</strong>
+              </p>
+      
+          <div class="form-check mb-4">
+            <input class="form-check-input" name="group1" type="radio" id="radio-279" value="option2">
+            <label class="form-check-label" for="radio-179">Scale 2</label>
+            <label style="padding-left:5px">|AB:10 |LR:30 |MT:20 |AN:20 |CN:20 |</label>
+          </div>
+              <!-- Radio -->
+      
+              <div><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 col-md-6 mx-auto" >Assign </button></div>
+        </form>
+</div>
+        <?php } } }else{ if($projects['score'] === null){ ?>
+        <tr style="text-align:center;">
+            <td><?php echo ($projects['title'])?></td>
+            <td><?php echo ($projects['studentMatricNo'])?></td>
+            <td><div class = "col-md-8 mx-auto" style="margin:auto;"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 col-md-6 mx-auto" data-toggle="modal" data-target="#modalPoll">Assign Project</button></div></td>
+        </tr>
+        
+         <?php  } }?>
                
     </tbody>
     <!--Table body-->
@@ -336,7 +381,7 @@ $projects = $admCtrl->view_projects();
       
               <div><button type="button" class="btn btn-primary btn-rounded btn-sm my-0 light-blue accent-3 col-md-6 mx-auto" >Assign </button></div>
       
-            </div>
+</div>
 
 
 

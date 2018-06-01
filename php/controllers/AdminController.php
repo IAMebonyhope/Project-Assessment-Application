@@ -143,7 +143,7 @@ class AdminController{
         }
         else{
             $examiner = Examiner::read([
-                    ["email", "=", $array['email']],
+                    ["email", "=", "'".$array['email']."'"],
                     ]);
             
             if(is_array($examiner)){

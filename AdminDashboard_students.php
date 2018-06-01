@@ -266,7 +266,7 @@ if(isset($_POST['create-student'])){
                   <strong></strong>140805020</strong>
                 </p>
                 <p>Name:
-                      <strong></strong>Seyikemi Sojirin</strong>
+                      <strong></strong>OLUWALOLOPE HOPE</strong>
                     </p>
               </div>
       
